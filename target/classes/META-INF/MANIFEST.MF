@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Implementation-Title: bskms
+Implementation-Version: 0.0.1-SNAPSHOT
+Built-By: 19604
+Implementation-Vendor-Id: com.jack.bskms
+Build-Jdk: 1.8.0_202
+Implementation-URL: https://projects.spring.io/spring-boot/#/spring-bo
+ ot-starter-parent/bskms
+Created-By: Maven Integration for Eclipse
+
