@@ -56,7 +56,6 @@ public class LoginController {
 	/**
 	 * Method name: logout <BR>
 	 * Description: 退出登录 <BR>
-	 * 
 	 * @return String<BR>
 	 */
 	@RequestMapping(value = "/logout", method = RequestMethod.GET)
