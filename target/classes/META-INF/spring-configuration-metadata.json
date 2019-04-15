@@ -4,7 +4,7 @@
       "name": "spring.datasource",
       "type": "com.alibaba.druid.pool.DruidDataSource",
       "sourceType": "com.bskms.config.DruidConfiguration",
-      "sourceMethod": "dataSource()"
+      "sourceMethod": "public com.alibaba.druid.pool.DruidDataSource dataSource() "
     }
   ],
   "properties": [
