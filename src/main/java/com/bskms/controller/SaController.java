@@ -1,12 +1,4 @@
 
-/*
-* All rights Reserved, Copyright (C) Aisino LIMITED 2019
-* FileName: SaController.java
-* Version:  1.0
-* Modify record:
-* NO. |     Date       |    Name        |      Content
-* 1   | 2019年3月1日        | Aisino)Jack    | original version
-*/
 package com.bskms.controller;
 
 import java.util.Date;
@@ -40,13 +32,6 @@ import com.bskms.service.UserRoleService;
 import com.bskms.service.UserService;
 import com.bskms.utils.MD5;
 
-/**
- * class name: SaController <BR>
- * class description: please write your description <BR>
- * 
- * @version 1.0 2019年3月1日 上午8:37:06
- * @author Aisino)weihaohao
- */
 @Controller
 @RequestMapping(value = "/sa")
 public class SaController {
