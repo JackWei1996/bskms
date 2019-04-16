@@ -34,4 +34,6 @@ public interface ClassesMapper {
 
 	int countAllClassByLimit(Classes classParameter);
 
+	List<Classes> selectAllClasses();
+
 }

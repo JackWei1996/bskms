@@ -466,4 +466,10 @@ public class UserServiceImpl implements UserService {
 	public String getName(String userId) {
 		return userMapper.getName(userId);
 	}
+
+	@Override
+	public List<User> selectAllTea() {
+		
+		return userMapper.selectAllTea();
+	}
 }

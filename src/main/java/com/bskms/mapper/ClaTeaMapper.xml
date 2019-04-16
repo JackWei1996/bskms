@@ -7,6 +7,8 @@
     <result column="tec_id" jdbcType="VARCHAR" property="tecId" />
     <result column="subject" jdbcType="VARCHAR" property="subject" />
     <result column="describe" jdbcType="VARCHAR" property="describe" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -208,4 +210,20 @@
       describe = #{describe,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <select id="getAllTeaByLimit" parameterType="com.bskms.bean.ClaTea" resultMap="BaseResultMap">
+    select t.*,c.name,u.user_name from cla_tea t
+    LEFT JOIN classes c on t.tec_id=c.bzr_id
+    LEFT JOIN user u on t.tec_id=u.user_id
+    where u.user_state=1
+    <if test="limit!=null">
+			limit #{page}, #{limit}
+	</if>
+  </select>
+  <select id="countAllTeaByLimit" parameterType="com.bskms.bean.ClaTea" resultType="int">
+      select count(*) from cla_tea t
+      LEFT JOIN classes c on t.tec_id=c.bzr_id
+      LEFT JOIN user u on t.tec_id=u.user_id
+      where u.user_state=1
+   
+  </select>
 </mapper>

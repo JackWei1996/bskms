@@ -1,6 +1,6 @@
 package com.bskms.bean;
 
-public class ClaStu {
+public class ClaStu extends BaseBean{
     private Integer id;
 
     private Integer classId;

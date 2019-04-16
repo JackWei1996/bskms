@@ -1,6 +1,6 @@
 package com.bskms.bean;
 
-public class ClaTea {
+public class ClaTea extends BaseBean{
     private Integer id;
 
     private Integer classId;
@@ -10,8 +10,28 @@ public class ClaTea {
     private String subject;
 
     private String describe;
+    
+    private String userName;
+    
+    private String name;
 
-    public Integer getId() {
+    public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public Integer getId() {
         return id;
     }
 

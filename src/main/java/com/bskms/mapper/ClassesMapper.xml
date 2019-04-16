@@ -268,5 +268,7 @@
 				and u.user_name like concat('%',#{userName},'%')
 	</if>
   </select>
-  
+  <select id="selectAllClasses" parameterType="com.bskms.bean.Classes" resultMap="BaseResultMap">
+    select * from classes
+  </select>
 </mapper>

@@ -10,31 +10,24 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
+import com.bskms.bean.ClaTea;
 import com.bskms.bean.Classes;
-import com.bskms.bean.User;
-import com.bskms.bean.UserExample;
-import com.bskms.bean.UserRoleExample;
-import com.bskms.common.GlobalState;
+import com.bskms.mapper.ClaTeaMapper;
 import com.bskms.mapper.ClassesMapper;
-import com.bskms.mapper.UserMapper;
-import com.bskms.mapper.UserRoleMapper;
 import com.bskms.model.MMGridPageVoBean;
-import com.bskms.model.ResultMap;
-import com.bskms.service.ClassService;
-import com.bskms.utils.MD5;
+import com.bskms.service.TeaService;
 
 /**
- * @author zjl
+ * @author samsung
  *
  */
 @Service
-public class ClassServiceImpl implements ClassService{
-	
+public class TeaServiceImpl implements TeaService{
+
 	@Autowired
-	private ClassesMapper classesMapper;
+	private ClaTeaMapper teaMapper;
 	
 	private final Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
 	
@@ -49,20 +42,20 @@ public class ClassServiceImpl implements ClassService{
 	 * @return <BR>
 	 */
 	@Override
-	public Object getAllClassByLimit(Classes classParameter) {
+	public Object getAllTeaByLimit(ClaTea teaParameter) {
 		int size = 0;
 
-		Integer begin = (classParameter.getPage() - 1) * classParameter.getLimit();
-		classParameter.setPage(begin);
+		Integer begin = (teaParameter.getPage() - 1) * teaParameter.getLimit();
+		teaParameter.setPage(begin);
 
-		List<Classes> rows = new ArrayList<>();
+		List<ClaTea> rows = new ArrayList<>();
 		try {
-			rows = classesMapper.getAllClassByLimit(classParameter);
-			size = classesMapper.countAllClassByLimit(classParameter);
+			rows = teaMapper.getAllTeaByLimit(teaParameter);
+			size = teaMapper.countAllTeaByLimit(teaParameter);
 		} catch (Exception e) {
 			logger.error("根据查询班级 异常", e);
 		}
-		MMGridPageVoBean<Classes> vo = new MMGridPageVoBean<>();
+		MMGridPageVoBean<ClaTea> vo = new MMGridPageVoBean<>();
 		vo.setTotal(size);
 		vo.setRows(rows);
 
@@ -70,48 +63,40 @@ public class ClassServiceImpl implements ClassService{
 	}
 
 	@Override
-	public Classes selectByPrimaryKey(Integer id) {
-		
-		return classesMapper.selectByPrimaryKey(id);
+	public ClaTea selectByPrimaryKey(Integer id) {
+		return teaMapper.selectByPrimaryKey(id);
 	}
 
 	@Override
-	public void addClasses(Classes classes) {
+	public void addClaTea(ClaTea clatea) {
 		try {
-		classesMapper.insert(classes);
-		}catch (Exception e) {
-			e.printStackTrace();
+			teaMapper.insert(clatea);
+			}catch (Exception e) {
+				e.printStackTrace();
 		}
 	}
 
 	@Override
-	public String updateClasses(Classes classes) {
+	public String updateTea(ClaTea clatea) {
 		try {
-			classesMapper.updateByPrimaryKeySelective(classes);
+			teaMapper.updateByPrimaryKeySelective(clatea);
 			return "SUCCESS";
 		} catch (Exception e) {
-			logger.error("根据用户id更新用户异常", e);
+			logger.error("根据教师id更新用户异常", e);
 			TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
 			return "ERR";
 		}
 	}
 
 	@Override
-	@Transactional
-	public void delClassesById(Integer id) {
+	public void delClaTeaById(int id) {
 		try {
-			classesMapper.deleteByPrimaryKey(id);
+			teaMapper.deleteByPrimaryKey(id);
 		} catch (Exception e) {
 			logger.error("删除用户出现异常", e);
 			TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
 		}
 		
-	}
-
-	@Override
-	public List<Classes> selectAllClasses() {
-		
-		return classesMapper.selectAllClasses();
 	}
 
 

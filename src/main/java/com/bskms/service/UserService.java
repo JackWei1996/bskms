@@ -40,4 +40,6 @@ public interface UserService {
 	void recoverUser(String id);
 
 	String getName(String issueReporter);
+
+	List<User> selectAllTea();
 }

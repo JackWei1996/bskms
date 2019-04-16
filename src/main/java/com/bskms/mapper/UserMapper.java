@@ -46,4 +46,6 @@ public interface UserMapper {
 	int countAllDelUserByLimit(UserParameter userParameter);
 
 	String getName(@Param("userId") String userId);
+
+	List<User> selectAllTea();
 }

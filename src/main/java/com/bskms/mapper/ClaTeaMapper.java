@@ -27,4 +27,8 @@ public interface ClaTeaMapper {
     int updateByPrimaryKeySelective(ClaTea record);
 
     int updateByPrimaryKey(ClaTea record);
+
+	List<ClaTea> getAllTeaByLimit(ClaTea teaParameter);
+
+	int countAllTeaByLimit(ClaTea teaParameter);
 }

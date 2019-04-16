@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.bskms.bean.ClaTea;
 import com.bskms.bean.Classes;
 import com.bskms.bean.Page;
 import com.bskms.bean.Role;
@@ -30,6 +31,7 @@ import com.bskms.service.IExcel2DB;
 import com.bskms.service.PageRoleService;
 import com.bskms.service.PageService;
 import com.bskms.service.RoleService;
+import com.bskms.service.TeaService;
 import com.bskms.service.UserRoleService;
 import com.bskms.service.UserService;
 import com.bskms.utils.MD5;
@@ -52,6 +54,8 @@ public class SaController {
 	private IExcel2DB excel2db;
 	@Autowired
 	private ClassService classService;
+	@Autowired
+	private TeaService teaService;
 
 	private final Logger logger = LoggerFactory.getLogger(SaController.class);
 
@@ -591,6 +595,110 @@ public class SaController {
 			return "ERROR";
 		}
 	}
+	
+	
+
+	//教师管理
+	
+	/**
+	 * Method name: teacherPage <BR>
+	 * Description: 教师管理页面 <BR>
+	 * 
+	 * @return String<BR>
+	 */
+	@RequestMapping(value = "/teaMG")
+	public String teaMG() {
+		return "sa/claTea";
+	}
+	
+	/**
+	 * Method name: getAllTeacherByLimit <BR>
+	 * Description: 根据条件获取所有教师 <BR>
+	 * 
+	 * @param userParameter
+	 * @return Object<BR>
+	 */
+	@RequestMapping("/getAllTeacherByLimit")
+	@ResponseBody
+	public Object getAllTeacherByLimit(ClaTea teaParameter) {
+		return teaService.getAllTeaByLimit(teaParameter);
+	}
+	
+	/**
+	 * Method name: addTeaPage <BR>
+	 * Description: 增加教师界面 <BR>
+	 * 
+	 * @return String<BR>
+	 */
+	@RequestMapping(value = "/addTeaPage")
+	public String addTeaPage(Integer id, Model model) {
+		model.addAttribute("manageTea", id);
+		if (null != id) {
+			ClaTea clatea = teaService.selectByPrimaryKey(id);
+			model.addAttribute("manageTea", clatea);
+		}
+		List<Classes> classes=classService.selectAllClasses();
+		model.addAttribute("cla", classes);
+		List<User> teacher=userService.selectAllTea();
+		model.addAttribute("tea", teacher);
+		return "sa/claTeaAdd";
+	}
+	
+	/**
+	 * Method name: addTea <BR>
+	 * Description: 教师添加 <BR>
+	 * 
+	 * @param user
+	 * @return String<BR>
+	 */
+	@ResponseBody
+	@RequestMapping("/addTea")
+	public String addTea(ClaTea clatea) {
+		try {
+			
+			teaService.addClaTea(clatea);
+			return "SUCCESS";
+		} catch (Exception e) {
+			return "ERR";
+		}
+	}
+
+	/**
+	 * Method name: updateClaTea <BR>
+	 * Description: 更新教师 <BR>
+	 * 
+	 * @param user
+	 * @return String<BR>
+	 */
+	@ResponseBody
+	@RequestMapping("/updateClaTea")
+	public String updateClaTea(ClaTea clatea) {
+		return teaService.updateTea(clatea);
+	}
+	
+	/**
+	 * Method name: delClaTea <BR>
+	 * Description: 批量删除教师<BR>
+	 * 
+	 * @param ids
+	 * @return String<BR>
+	 */
+	@RequestMapping(value = "delClaTea")
+	@ResponseBody
+	@Transactional
+	public String delClaTea(String[] ids) {
+		try {
+			for (String id : ids) {
+				teaService.delClaTeaById(Integer.parseInt(id));
+			}
+			return "SUCCESS";
+		} catch (Exception e) {
+			logger.error("根据班级id删除异常", e);
+			TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+			return "ERROR";
+		}
+	}
+
 
 
 }
