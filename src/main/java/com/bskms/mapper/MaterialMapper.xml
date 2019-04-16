@@ -69,7 +69,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, name, count, price, from, describe, create_time
+    id, name, count, price, from, `describe`, create_time
   </sql>
   <select id="selectByExample" parameterType="com.bskms.bean.MaterialExample" resultMap="BaseResultMap">
     select
@@ -103,7 +103,7 @@
   </delete>
   <insert id="insert" parameterType="com.bskms.bean.Material">
     insert into material (id, name, count, 
-      price, from, describe, 
+      price, from, `describe`, 
       create_time)
     values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{count,jdbcType=INTEGER}, 
       #{price,jdbcType=DECIMAL}, #{from,jdbcType=VARCHAR}, #{describe,jdbcType=VARCHAR}, 
@@ -128,7 +128,7 @@
         from,
       </if>
       <if test="describe != null">
-        describe,
+        `describe`,
       </if>
       <if test="createTime != null">
         create_time,
@@ -183,7 +183,7 @@
         from = #{record.from,jdbcType=VARCHAR},
       </if>
       <if test="record.describe != null">
-        describe = #{record.describe,jdbcType=VARCHAR},
+        `describe` = #{record.describe,jdbcType=VARCHAR},
       </if>
       <if test="record.createTime != null">
         create_time = #{record.createTime,jdbcType=TIMESTAMP},
@@ -200,7 +200,7 @@
       count = #{record.count,jdbcType=INTEGER},
       price = #{record.price,jdbcType=DECIMAL},
       from = #{record.from,jdbcType=VARCHAR},
-      describe = #{record.describe,jdbcType=VARCHAR},
+      `describe` = #{record.describe,jdbcType=VARCHAR},
       create_time = #{record.createTime,jdbcType=TIMESTAMP}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -222,7 +222,7 @@
         from = #{from,jdbcType=VARCHAR},
       </if>
       <if test="describe != null">
-        describe = #{describe,jdbcType=VARCHAR},
+        `describe` = #{describe,jdbcType=VARCHAR},
       </if>
       <if test="createTime != null">
         create_time = #{createTime,jdbcType=TIMESTAMP},
@@ -236,7 +236,7 @@
       count = #{count,jdbcType=INTEGER},
       price = #{price,jdbcType=DECIMAL},
       from = #{from,jdbcType=VARCHAR},
-      describe = #{describe,jdbcType=VARCHAR},
+      `describe` = #{describe,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
