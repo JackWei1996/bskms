@@ -69,7 +69,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, kqr_id, state, describe, type, kqr_type, sign_in
+    id, kqr_id, state, `describe`, type, kqr_type, sign_in
   </sql>
   <select id="selectByExample" parameterType="com.bskms.bean.SignExample" resultMap="BaseResultMap">
     select
@@ -103,7 +103,7 @@
   </delete>
   <insert id="insert" parameterType="com.bskms.bean.Sign">
     insert into sign (id, kqr_id, state, 
-      describe, type, kqr_type, 
+      `describe`, type, kqr_type, 
       sign_in)
     values (#{id,jdbcType=INTEGER}, #{kqrId,jdbcType=VARCHAR}, #{state,jdbcType=INTEGER}, 
       #{describe,jdbcType=VARCHAR}, #{type,jdbcType=INTEGER}, #{kqrType,jdbcType=INTEGER}, 
@@ -122,7 +122,7 @@
         state,
       </if>
       <if test="describe != null">
-        describe,
+        `describe`,
       </if>
       <if test="type != null">
         type,
@@ -177,7 +177,7 @@
         state = #{record.state,jdbcType=INTEGER},
       </if>
       <if test="record.describe != null">
-        describe = #{record.describe,jdbcType=VARCHAR},
+        `describe` = #{record.describe,jdbcType=VARCHAR},
       </if>
       <if test="record.type != null">
         type = #{record.type,jdbcType=INTEGER},
@@ -198,7 +198,7 @@
     set id = #{record.id,jdbcType=INTEGER},
       kqr_id = #{record.kqrId,jdbcType=VARCHAR},
       state = #{record.state,jdbcType=INTEGER},
-      describe = #{record.describe,jdbcType=VARCHAR},
+      `describe` = #{record.describe,jdbcType=VARCHAR},
       type = #{record.type,jdbcType=INTEGER},
       kqr_type = #{record.kqrType,jdbcType=INTEGER},
       sign_in = #{record.signIn,jdbcType=TIMESTAMP}
@@ -216,7 +216,7 @@
         state = #{state,jdbcType=INTEGER},
       </if>
       <if test="describe != null">
-        describe = #{describe,jdbcType=VARCHAR},
+        `describe` = #{describe,jdbcType=VARCHAR},
       </if>
       <if test="type != null">
         type = #{type,jdbcType=INTEGER},
@@ -234,7 +234,7 @@
     update sign
     set kqr_id = #{kqrId,jdbcType=VARCHAR},
       state = #{state,jdbcType=INTEGER},
-      describe = #{describe,jdbcType=VARCHAR},
+      `describe` = #{describe,jdbcType=VARCHAR},
       type = #{type,jdbcType=INTEGER},
       kqr_type = #{kqrType,jdbcType=INTEGER},
       sign_in = #{signIn,jdbcType=TIMESTAMP}

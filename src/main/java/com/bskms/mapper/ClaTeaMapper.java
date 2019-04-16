@@ -1,3 +1,4 @@
+
 package com.bskms.mapper;
 
 import com.bskms.bean.ClaTea;
@@ -31,4 +32,5 @@ public interface ClaTeaMapper {
 	List<ClaTea> getAllTeaByLimit(ClaTea teaParameter);
 
 	int countAllTeaByLimit(ClaTea teaParameter);
+
 }
