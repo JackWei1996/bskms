@@ -20,7 +20,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.bskms.bean.ClaTea;
 import com.bskms.bean.Classes;
+import com.bskms.bean.Material;
 import com.bskms.bean.Page;
+import com.bskms.bean.Pay;
 import com.bskms.bean.Role;
 import com.bskms.bean.User;
 import com.bskms.model.LayuiMap;
@@ -28,8 +30,10 @@ import com.bskms.model.ResultMap;
 import com.bskms.model.UserParameter;
 import com.bskms.service.ClassService;
 import com.bskms.service.IExcel2DB;
+import com.bskms.service.MaterialService;
 import com.bskms.service.PageRoleService;
 import com.bskms.service.PageService;
+import com.bskms.service.PayService;
 import com.bskms.service.RoleService;
 import com.bskms.service.TeaService;
 import com.bskms.service.UserRoleService;
@@ -56,6 +60,10 @@ public class SaController {
 	private ClassService classService;
 	@Autowired
 	private TeaService teaService;
+	@Autowired
+	private PayService payService;
+	@Autowired
+	private MaterialService materialService;
 
 	private final Logger logger = LoggerFactory.getLogger(SaController.class);
 
@@ -699,6 +707,202 @@ public class SaController {
 		}
 	}
 
+	//工资管理
+	
+		/**
+		 * Method name: payMG <BR>
+		 * Description: 工资管理页面 <BR>
+		 * 
+		 * @return String<BR>
+		 */
+		@RequestMapping(value = "/payMG")
+		public String payMG() {
+			return "sa/pay";
+		}
+		
+		/**
+		 * Method name: getAllPayByLimit <BR>
+		 * Description: 根据条件获取所有教师 <BR>
+		 * 
+		 * @param userParameter
+		 * @return Object<BR>
+		 */
+		@RequestMapping("/getAllPayByLimit")
+		@ResponseBody
+		public Object getAllPayByLimit(Pay payParameter) {
+			return payService.getAllPayByLimit(payParameter);
+		}
+		
+		/**
+		 * Method name: addTeaPage <BR>
+		 * Description: 增加教师界面 <BR>
+		 * 
+		 * @return String<BR>
+		 */
+		@RequestMapping(value = "/addPayPage")
+		public String addPayPage(Integer id, Model model) {
+			model.addAttribute("managePay", id);
+			if (null != id) {
+				Pay pay = payService.selectByPrimaryKey(id);
+				model.addAttribute("managePay", pay);
+			}
+			
+			List<User> teacher=userService.selectAllTea();
+			model.addAttribute("tea", teacher);
+			return "sa/PayAdd";
+		}
+		
+		/**
+		 * Method name: addPay <BR>
+		 * Description: 教师添加 <BR>
+		 * 
+		 * @param user
+		 * @return String<BR>
+		 */
+		@ResponseBody
+		@RequestMapping("/addPay")
+		public String addPay(Pay pay) {
+			try {
+				pay.setPaymentTime(new Date());
+				payService.addPayTea(pay);
+				return "SUCCESS";
+			} catch (Exception e) {
+				return "ERR";
+			}
+		}
 
+		/**
+		 * Method name: updatePay <BR>
+		 * Description: 更新教师 <BR>
+		 * 
+		 * @param user
+		 * @return String<BR>
+		 */
+		@ResponseBody
+		@RequestMapping("/updatePay")
+		public String updatePay(Pay pay) {
+			return payService.updateTea(pay);
+		}
+		
+		/**
+		 * Method name: delClaTea <BR>
+		 * Description: 批量删除教师<BR>
+		 * 
+		 * @param ids
+		 * @return String<BR>
+		 */
+		@RequestMapping(value = "delPay")
+		@ResponseBody
+		@Transactional
+		public String delPay(String[] ids) {
+			try {
+				for (String id : ids) {
+					payService.delClaTeaById(Integer.parseInt(id));
+				}
+				return "SUCCESS";
+			} catch (Exception e) {
+				logger.error("根据班级id删除异常", e);
+				TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+				return "ERROR";
+			}
+		}
+		
+		//物资管理
+		
+			/**
+			 * Method name: materialMG <BR>
+			 * Description: 物资管理页面 <BR>
+			 * 
+			 * @return String<BR>
+			 */
+			@RequestMapping(value = "/materialMG")
+			public String materialMG() {
+				return "sa/material";
+			}
+			
+			/**
+			 * Method name: getAllMaterialByLimit <BR>
+			 * Description: 根据条件获取所有教师 <BR>
+			 * 
+			 * @param userParameter
+			 * @return Object<BR>
+			 */
+			@RequestMapping("/getAllMaterialByLimit")
+			@ResponseBody
+			public Object getAllMaterialByLimit(Material materialParameter) {
+				return materialService.getAllMaterialByLimit(materialParameter);
+			}
+			
+			/**
+			 * Method name: addTeaPage <BR>
+			 * Description: 增加教师界面 <BR>
+			 * 
+			 * @return String<BR>
+			 */
+			@RequestMapping(value = "/addMaterialPage")
+			public String addMaterialPage(Integer id, Model model) {
+				model.addAttribute("manageMaterial", id);
+				if (null != id) {
+					Material material = materialService.selectByPrimaryKey(id);
+					model.addAttribute("manageMaterial", material);
+				}
+				
+				return "sa/MaterialAdd";
+			}
+			
+			/**
+			 * Method name: addMaterial <BR>
+			 * Description: 教师添加 <BR>
+			 * 
+			 * @param user
+			 * @return String<BR>
+			 */
+			@ResponseBody
+			@RequestMapping("/addMaterial")
+			public String addMaterial(Material material) {
+				try {
+					material.setCreateTime(new Date());
+					materialService.addMaterial(material);
+					return "SUCCESS";
+				} catch (Exception e) {
+					return "ERR";
+				}
+			}
+
+			/**
+			 * Method name: updateMaterial <BR>
+			 * Description: 更新教师 <BR>
+			 * 
+			 * @param user
+			 * @return String<BR>
+			 */
+			@ResponseBody
+			@RequestMapping("/updateMaterial")
+			public String updateMaterial(Material material) {
+				return materialService.updateMaterial(material);
+			}
+			
+			/**
+			 * Method name: delClaTea <BR>
+			 * Description: 批量删除教师<BR>
+			 * 
+			 * @param ids
+			 * @return String<BR>
+			 */
+			@RequestMapping(value = "delMaterial")
+			@ResponseBody
+			@Transactional
+			public String delMaterial(String[] ids) {
+				try {
+					for (String id : ids) {
+						materialService.delMaterialById(Integer.parseInt(id));
+					}
+					return "SUCCESS";
+				} catch (Exception e) {
+					logger.error("根据班级id删除异常", e);
+					TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+					return "ERROR";
+				}
+			}
 
 }

@@ -1,5 +1,6 @@
 package com.bskms.mapper;
 
+import com.bskms.bean.ClaTea;
 import com.bskms.bean.Pay;
 import com.bskms.bean.PayExample;
 import java.util.List;
@@ -27,4 +28,8 @@ public interface PayMapper {
     int updateByPrimaryKeySelective(Pay record);
 
     int updateByPrimaryKey(Pay record);
+
+	List<Pay> getAllPayByLimit(Pay payParameter);
+
+	int countAllPayByLimit(Pay payParameter);
 }

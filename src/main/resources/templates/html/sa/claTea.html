@@ -114,7 +114,7 @@ function deleteRowOne(id){
     		type:"POST",
     		async:true,  //默认true,异步
     		data:param,
-    		url:"/sa/delClasses",
+    		url:"/sa/delClaTea",
     		success:function(data){
     			if(data == "SUCCESS"){
     				layer.alert('删除成功！', {icon: 1}, function(indexOk){
@@ -149,7 +149,7 @@ function editRowOne(id){
 	    type: 2,
 	    title: '修改班级',
 	    area: ['70%', '90%'],
-	    content: '/sa/addClassesPage?id='+id //iframe的url
+	    content: '/sa/addTeaPage?id='+id //iframe的url
 	});
 }
 

@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<title>班级管理</title>
+<title>物资管理</title>
 <link type="text/css" rel="stylesheet" th:href="@{/css/page.css}"/>
 <script type="text/javascript" th:src="@{/js/jquery/jquery-3.3.1.js}"></script>
 <!-- mmGrid -->
@@ -29,12 +29,12 @@
 	<table class="param_table" style="margin-left:10px;" >
 		<tr>
 			<td style="width:150px;">
-				<span>班级名：</span>
+				<span>物品名：</span>
 				<input type="text" id="name" name="name" class="input_0" />
 			</td>
 			<td style="width:150px;">
-				<span>班主任：</span>
-				<input type="text" id="userName" name="userName" class="input_0" />
+				<span>物品来源：</span>
+				<input type="text" id="from" name="from" class="input_0" />
 			</td>
 			
 
@@ -60,7 +60,7 @@ $(function(){
 	//表格
 	$('#exampleTableUser').mmGrid({
     	root:'rows',// 和后台数据保存列一致,对应MMGridPageVoBean rows
-		url:"/sa/getAllClassByLimit",
+		url:"/sa/getAllMaterialByLimit",
     	width: 'auto',
     	height: 'auto',
     	//checkCol: true,
@@ -73,16 +73,16 @@ $(function(){
        	
         	param.id = $.trim($("#id").val());
         	param.name = $.trim($("#name").val());
-        	param.userName = $.trim($("#userName").val());
-        	param.stuCount = $.trim($("#stuCount").val());
-        	
+        	param.from = $.trim($("#from").val());
         	return param;
         },
         cols: [{title: 'ID', name: 'id', width:60, hidden:true},
-			   {title: '班级名', name: 'name', width:50},
-			   {title: '班主任', name: 'userName', width:50},
-			   {title: '学生数', name: 'stuCount', width:50},
-			   {title: '创建时间', name: 'createTime', width:70},
+			   {title: '物品名', name: 'name', width:50},
+			   {title: '数量', name: 'count', width:50},
+			   {title: '单价', name: 'price', width:50},
+			   {title: '来源', name: 'from', width:50},
+			   {title: '描述', name: 'describe', width:50},
+			   {title: '创建时间', name: 'createTime', width:50},
 			   {title: '操作', name: 'id', width:80, renderer:function(val, item, rowIndex){
 				   var buttonStr = '<span class="layui-btn layui-btn-sm" onclick="editRowOne('+"\'"+item.id+"\'"+')" >修改</span>' +
 				   				   '<span class=" layui-btn layui-btn-danger layui-btn-sm" onclick="deleteRowOne('+"\'"+item.id+"\'"+')" >删除</span>';
@@ -115,7 +115,7 @@ function deleteRowOne(id){
     		type:"POST",
     		async:true,  //默认true,异步
     		data:param,
-    		url:"/sa/delClasses",
+    		url:"/sa/delMaterial",
     		success:function(data){
     			if(data == "SUCCESS"){
     				layer.alert('删除成功！', {icon: 1}, function(indexOk){
@@ -141,7 +141,7 @@ function addRow(){
 	    type: 2,
 	    title: '增加班级',
 	    area: ['55%', '90%'],//宽高
-	    content: '/sa/addClassesPage' //iframe的url
+	    content: '/sa/addPayPage' //iframe的url
 	});
 }
 //修改标签
@@ -150,7 +150,7 @@ function editRowOne(id){
 	    type: 2,
 	    title: '修改班级',
 	    area: ['70%', '90%'],
-	    content: '/sa/addClassesPage?id='+id //iframe的url
+	    content: '/sa/addPayPage?id='+id //iframe的url
 	});
 }
 

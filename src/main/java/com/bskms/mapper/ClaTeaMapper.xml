@@ -213,6 +213,12 @@
     LEFT JOIN classes c on t.tec_id=c.bzr_id
     LEFT JOIN user u on t.tec_id=u.user_id
     where u.user_state=1
+     <if test="name!=null and name!=''">
+				and c.name like concat('%',#{name},'%')
+	</if>
+	<if test="userName!=null and userName!=''">
+				and u.user_name like concat('%',#{userName},'%')
+	</if>
     <if test="limit!=null">
 			limit #{page}, #{limit}
 	</if>
@@ -222,6 +228,11 @@
       LEFT JOIN classes c on t.tec_id=c.bzr_id
       LEFT JOIN user u on t.tec_id=u.user_id
       where u.user_state=1
-   
+     <if test="name!=null and name!=''">
+				and c.name like concat('%',#{name},'%')
+	</if>
+	<if test="userName!=null and userName!=''">
+				and u.user_name like concat('%',#{userName},'%')
+	</if>
   </select>
 </mapper>

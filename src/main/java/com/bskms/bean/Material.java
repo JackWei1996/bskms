@@ -3,7 +3,7 @@ package com.bskms.bean;
 import java.math.BigDecimal;
 import java.util.Date;
 
-public class Material {
+public class Material extends BaseBean{
     private Integer id;
 
     private String name;

@@ -12,6 +12,9 @@
     <result column="bonus" jdbcType="DOUBLE" property="bonus" />
     <result column="other" jdbcType="DOUBLE" property="other" />
     <result column="payment_time" jdbcType="TIMESTAMP" property="paymentTime" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName"/>
+    <result column="minBase" jdbcType="DOUBLE" property="minBase"/>
+    <result column="maxBase" jdbcType="DOUBLE" property="maxBase"/>
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -287,4 +290,26 @@
       payment_time = #{paymentTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
+   <select id="getAllPayByLimit" parameterType="com.bskms.bean.ClaTea" resultMap="BaseResultMap">
+   select p.*,u.user_name from pay p
+   left join user u on p.name=u.user_id
+   where u.user_state=1
+     <if test="minBase!=null and minBase!=''">
+		and p.base > #{minBase,jdbcType=DOUBLE}
+	</if>
+	 <if test="minBase!=null and base!=''">
+		and p.base > #{minBase,jdbcType=DOUBLE}
+	</if>
+    <if test="limit!=null">
+		limit #{page}, #{limit}
+	</if>
+  </select>
+  <select id="countAllPayByLimit" parameterType="com.bskms.bean.ClaTea" resultType="int">
+      select count(*) from pay p
+   left join user u on p.name=u.user_id
+   where u.user_state=1
+     <if test="base!=null and base!=''">
+				and p.base between #{minBase,jdbcType=DOUBLE} and #{maxBase,jdbcType=DOUBLE}
+	</if>
+  </select>
 </mapper>

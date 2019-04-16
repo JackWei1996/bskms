@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<title>班级管理</title>
+<title>工资管理</title>
 <link type="text/css" rel="stylesheet" th:href="@{/css/page.css}"/>
 <script type="text/javascript" th:src="@{/js/jquery/jquery-3.3.1.js}"></script>
 <!-- mmGrid -->
@@ -29,12 +29,12 @@
 	<table class="param_table" style="margin-left:10px;" >
 		<tr>
 			<td style="width:150px;">
-				<span>班级名：</span>
-				<input type="text" id="name" name="name" class="input_0" />
+				<span>最小基本工资：</span>
+				<input type="text" id="minBase" name="minBase" class="input_0" />
 			</td>
 			<td style="width:150px;">
-				<span>班主任：</span>
-				<input type="text" id="userName" name="userName" class="input_0" />
+				<span>最大基本工资：</span>
+				<input type="text" id="maxBase" name="maxBase" class="input_0" />
 			</td>
 			
 
@@ -60,7 +60,7 @@ $(function(){
 	//表格
 	$('#exampleTableUser').mmGrid({
     	root:'rows',// 和后台数据保存列一致,对应MMGridPageVoBean rows
-		url:"/sa/getAllClassByLimit",
+		url:"/sa/getAllPayByLimit",
     	width: 'auto',
     	height: 'auto',
     	//checkCol: true,
@@ -72,17 +72,27 @@ $(function(){
         	var param = new Object();
        	
         	param.id = $.trim($("#id").val());
-        	param.name = $.trim($("#name").val());
         	param.userName = $.trim($("#userName").val());
-        	param.stuCount = $.trim($("#stuCount").val());
-        	
+        	param.base = $.trim($("#base").val());
+        	param.overtime = $.trim($("#overtime").val());
+        	param.traffic = $.trim($("#traffic").val());
+        	param.meal = $.trim($("#meal").val());
+        	param.vacation = $.trim($("#vacation").val());
+        	param.bonus = $.trim($("#bonus").val());
+        	param.other = $.trim($("#other").val());
+        	param.minBase = $.trim($("#minBase").val());
+        	param.maxBase = $.trim($("#maxBase").val());
         	return param;
         },
         cols: [{title: 'ID', name: 'id', width:60, hidden:true},
-			   {title: '班级名', name: 'name', width:50},
-			   {title: '班主任', name: 'userName', width:50},
-			   {title: '学生数', name: 'stuCount', width:50},
-			   {title: '创建时间', name: 'createTime', width:70},
+			   {title: '教师', name: 'userName', width:50},
+			   {title: '基本工资', name: 'base', width:50},
+			   {title: '加班工资', name: 'overtime', width:50},
+			   {title: '交通补', name: 'traffic', width:50},
+			   {title: '餐补', name: 'meal', width:50},
+			   {title: '节假日补贴', name: 'vacation', width:50},
+			   {title: '绩效', name: 'bonus', width:50},
+			   {title: '其他', name: 'other', width:50},
 			   {title: '操作', name: 'id', width:80, renderer:function(val, item, rowIndex){
 				   var buttonStr = '<span class="layui-btn layui-btn-sm" onclick="editRowOne('+"\'"+item.id+"\'"+')" >修改</span>' +
 				   				   '<span class=" layui-btn layui-btn-danger layui-btn-sm" onclick="deleteRowOne('+"\'"+item.id+"\'"+')" >删除</span>';
@@ -115,7 +125,7 @@ function deleteRowOne(id){
     		type:"POST",
     		async:true,  //默认true,异步
     		data:param,
-    		url:"/sa/delClasses",
+    		url:"/sa/delPay",
     		success:function(data){
     			if(data == "SUCCESS"){
     				layer.alert('删除成功！', {icon: 1}, function(indexOk){
@@ -141,7 +151,7 @@ function addRow(){
 	    type: 2,
 	    title: '增加班级',
 	    area: ['55%', '90%'],//宽高
-	    content: '/sa/addClassesPage' //iframe的url
+	    content: '/sa/addPayPage' //iframe的url
 	});
 }
 //修改标签
@@ -150,7 +160,7 @@ function editRowOne(id){
 	    type: 2,
 	    title: '修改班级',
 	    area: ['70%', '90%'],
-	    content: '/sa/addClassesPage?id='+id //iframe的url
+	    content: '/sa/addPayPage?id='+id //iframe的url
 	});
 }
 

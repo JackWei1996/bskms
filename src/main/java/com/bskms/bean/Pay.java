@@ -2,7 +2,7 @@ package com.bskms.bean;
 
 import java.util.Date;
 
-public class Pay {
+public class Pay extends BaseBean{
     private Integer id;
 
     private String name;
@@ -22,8 +22,38 @@ public class Pay {
     private Double other;
 
     private Date paymentTime;
+    
+    private String userName;
 
-    public Integer getId() {
+    private Double minBase;
+    
+    private Double maxBase;
+    
+    public Double getMinBase() {
+		return minBase;
+	}
+
+	public void setMinBase(Double minBase) {
+		this.minBase = minBase;
+	}
+
+	public Double getMaxBase() {
+		return maxBase;
+	}
+
+	public void setMaxBase(Double maxBase) {
+		this.maxBase = maxBase;
+	}
+
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+
+	public Integer getId() {
         return id;
     }
 
