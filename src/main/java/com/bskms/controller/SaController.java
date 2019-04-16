@@ -18,12 +18,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.bskms.bean.Classes;
 import com.bskms.bean.Page;
 import com.bskms.bean.Role;
 import com.bskms.bean.User;
 import com.bskms.model.LayuiMap;
 import com.bskms.model.ResultMap;
 import com.bskms.model.UserParameter;
+import com.bskms.service.ClassService;
 import com.bskms.service.IExcel2DB;
 import com.bskms.service.PageRoleService;
 import com.bskms.service.PageService;
@@ -48,6 +50,8 @@ public class SaController {
 	private UserService userService;
 	@Autowired
 	private IExcel2DB excel2db;
+	@Autowired
+	private ClassService classService;
 
 	private final Logger logger = LoggerFactory.getLogger(SaController.class);
 
@@ -489,4 +493,104 @@ public class SaController {
 			return "ERROR";
 		}
 	}
+	
+	
+	//班级管理
+	
+	/**
+	 * Method name: classesPage <BR>
+	 * Description: 班级管理页面 <BR>
+	 * 
+	 * @return String<BR>
+	 */
+	@RequestMapping(value = "/classesPage")
+	public String classesPage() {
+		return "sa/Classes";
+	}
+	
+	/**
+	 * Method name: getAllClassByLimit <BR>
+	 * Description: 根据条件获取所有用户 <BR>
+	 * 
+	 * @param userParameter
+	 * @return Object<BR>
+	 */
+	@RequestMapping("/getAllClassByLimit")
+	@ResponseBody
+	public Object getAllClassByLimit(Classes classParameter) {
+		return classService.getAllClassByLimit(classParameter);
+	}
+	
+	/**
+	 * Method name: addClassesPage <BR>
+	 * Description: 增加班级界面 <BR>
+	 * 
+	 * @return String<BR>
+	 */
+	@RequestMapping(value = "/addClassesPage")
+	public String addClassesPage(Integer id, Model model) {
+		model.addAttribute("manageClasses", id);
+		if (null != id) {
+			Classes classes = classService.selectByPrimaryKey(id);
+			model.addAttribute("manageClasses", classes);
+		}
+		return "sa/classesAdd";
+	}
+	
+	/**
+	 * Method name: addClasses <BR>
+	 * Description: 班级添加 <BR>
+	 * 
+	 * @param user
+	 * @return String<BR>
+	 */
+	@ResponseBody
+	@RequestMapping("/addClasses")
+	public String addClasses(Classes classes) {
+		try {
+			classes.setCreateTime(new Date());
+			classService.addClasses(classes);
+			return "SUCCESS";
+		} catch (Exception e) {
+			return "ERR";
+		}
+	}
+
+	/**
+	 * Method name: updateClasses <BR>
+	 * Description: 更新班级 <BR>
+	 * 
+	 * @param user
+	 * @return String<BR>
+	 */
+	@ResponseBody
+	@RequestMapping("/updateClasses")
+	public String updateClasses(Classes classes) {
+		return classService.updateClasses(classes);
+	}
+	
+	/**
+	 * Method name: delUser <BR>
+	 * Description: 批量删除班级 <BR>
+	 * 
+	 * @param ids
+	 * @return String<BR>
+	 */
+	@RequestMapping(value = "delClasses")
+	@ResponseBody
+	@Transactional
+	public String delClasses(String[] ids) {
+		try {
+			for (String id : ids) {
+				classService.delClassesById(Integer.parseInt(id));
+			}
+			return "SUCCESS";
+		} catch (Exception e) {
+			logger.error("根据班级id删除异常", e);
+			TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+			return "ERROR";
+		}
+	}
+
+
 }

@@ -2,6 +2,8 @@ package com.bskms.mapper;
 
 import com.bskms.bean.Classes;
 import com.bskms.bean.ClassesExample;
+import com.bskms.bean.User;
+
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
@@ -27,4 +29,9 @@ public interface ClassesMapper {
     int updateByPrimaryKeySelective(Classes record);
 
     int updateByPrimaryKey(Classes record);
+
+	List<Classes> getAllClassByLimit(Classes classParameter);
+
+	int countAllClassByLimit(Classes classParameter);
+
 }

@@ -83,6 +83,7 @@ $(function(){
    		$(":radio[name='userSex'][value='"+manageUser.userSex+"']").attr("checked", "checked");
    		$("#userMail").val(manageUser.userMail);
    		$("#userAddress").val(manageUser.userAddress);
+   		$("#userIdcard").val(manageUser.userIdcard);
    		$("select option[value='"+manageUser.userState+"']").attr("selected","selected");
    	}
 	//验证数字长度
@@ -163,6 +164,10 @@ $(function(){
 	            rangelength:[2, 20],
 	            onlyName:true
 	        },
+	        userIdcard: {     
+	            required:true,
+	            rangelength:[18, 18],
+	        },
 	        userTel: {
 	        	required:true,
 	        	mobilephone:11
@@ -187,6 +192,10 @@ $(function(){
 	        	required:"账号不可为空",
 	        	rangelength:"账号必须在2-20个字符之间",
 	        	remote:"账号已经存在"
+	        },
+	        userIdcard: {         
+	        	required:"身份证号不可为空",
+	        	rangelength:"输入的身份证错误",
 	        },
 	        userName: {         
 	        	required:"姓名不可为空",
@@ -256,7 +265,7 @@ function save(){
 	param.position = $.trim($("#position").val());
 	param.dept = $.trim($("#dept").val());
 	param.userState = $("#userState").val();
-	
+	param.userIdcard = $("#userIdcard").val();
 	var urlStr = "/sa/addUser";
 	
 	if(manageUser){
@@ -412,15 +421,24 @@ function save(){
 					<span class="validation_span"></span>
 				</td>
 			</tr>
-			
+			<tr style="">
+				<td align="right" >
+				    <span class="need_0">*</span>
+					<span class="text_ad_0">身份证号：</span>
+				</td>
+				<td>
+					<input id="userIdcard" type="text" name="userIdcard" class="input_0" value="" />
+					<span class="validation_span"></span>
+				</td>
+			</tr>
 			<tr>
 				<td style="" align="right">
-					<span class="text_ad_0">用户状态：</span>
+					<span class="text_ad_0">用户类型：</span>
 				</td>
 				<td >
 					<select id="userState" name="userState" class="input_0">
-						<option value="1">在职</option>
-						<option value="2">离职</option>
+						<option value="1">老师</option>
+						<option value="2">家长</option>
 					</select>
 				</td>
 			</tr>

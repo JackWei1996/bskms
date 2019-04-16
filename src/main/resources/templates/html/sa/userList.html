@@ -36,14 +36,7 @@
 				<span>账号：</span>
 				<input type="text" id="userId" name="userId" class="input_0" />
 			</td>
-			<td style="width:150px;">
-				<span>部门：</span>
-				<input type="text" id="dept" name="dept" class="input_0" />
-			</td>
-			<td style="width:150px;">
-				<span>职位：</span>
-				<input type="text" id="position" name="position" class="input_0" />
-			</td>
+			
 			<td style="width:150px;">
 				<span>性别：</span>
 				<select id="userSex" name="userSex" class="input_0">
@@ -53,11 +46,11 @@
 				</select>
 			</td>
 			<td style="width:150px;">
-				<span>状态：</span>
+				<span>类型：</span>
 				<select id="userState" name="userState" class="input_0">
 					<option value="-1">全部</option>
-					<option value="1">在职</option>
-					<option value="2">离职</option>
+					<option value="1">老师</option>
+					<option value="2">家长</option>
 				</select>
 			</td>
 			<td style="">
@@ -96,8 +89,9 @@ $(function(){
        	
         	param.userName = $.trim($("#userName").val());
         	param.userId = $.trim($("#userId").val());
-        	param.dept = $.trim($("#dept").val());
-        	param.position = $.trim($("#position").val());
+        	param.userBirthday = $.trim($("#userBirthday").val());
+        	param.userIdcard = $.trim($("#userIdcard").val());
+        	param.userAddress = $.trim($("#userAddress").val());
         	param.userSex = $.trim($("#userSex").val());
         	param.userState = $("#userState").val(); 
         	
@@ -106,9 +100,15 @@ $(function(){
         cols: [{title: 'ID', name: 'id', width:60, hidden:true},
 			   {title: '姓名', name: 'userName', width:50},
 			   {title: '账号', name: 'userId', width:50},
-			   {title: '部门', name: 'dept', width:50},
-			   {title: '职位', name: 'position', width:50},
-			   {title: '性别', name: 'userSex', width:40, renderer:function(val, item, rowIndex){
+			   {title: '出生日期', name: 'userBirthday', width:50, renderer:function(val, item, rowIndex){
+				   if(val){
+					   return (""+val).split(" ")[0];
+				   }
+				   return "";
+			   }},
+			   {title: '身份证号', name: 'userIdcard', width:120},
+			   {title: '地址', name: 'userAddress', width:160},
+			   {title: '性别', name: 'userSex', width:20, renderer:function(val, item, rowIndex){
 				   if(val == 1){
 					   return "男";
 				   }else if(val == 0){
@@ -117,15 +117,15 @@ $(function(){
 				   return "";
 			   }},
 			   {title: '移动电话', name: 'userTel', width:60},
-			   {title: '邮箱', name: 'userMail', width:160},
-			   {title: '状态', name: 'userState', width:40, renderer:function(val, item, rowIndex){
+			   {title: '邮箱', name: 'userMail', width:50},
+			   {title: '类型', name: 'userState', width:40, renderer:function(val, item, rowIndex){
 				   if(val == 1){
-					   return "<span style='color:green'>在职</span>";
+					   return "<span style='color:green'>老师</span>";
 				   }else if(val == 2){
-					   return "<span style='color:red'>离职</span>";
+					   return "<span style='color:red'>家长</span>";
 				   }
 			   }},
-			   {title: '操作', name: 'id', width:60, renderer:function(val, item, rowIndex){
+			   {title: '操作', name: 'id', width:80, renderer:function(val, item, rowIndex){
 				   var buttonStr = '<span class="layui-btn layui-btn-sm" onclick="editRowOne('+"\'"+item.userId+"\'"+')" >修改</span>' +
 				   				   '<span class=" layui-btn layui-btn-danger layui-btn-sm" onclick="deleteRowOne('+"\'"+item.userId+"\'"+')" >删除</span>';
 				   return "<div class='span_btus' >" + buttonStr + "</div>";

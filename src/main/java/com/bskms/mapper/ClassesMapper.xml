@@ -9,6 +9,7 @@
     <result column="stu_count" jdbcType="INTEGER" property="stuCount" />
     <result column="position" jdbcType="VARCHAR" property="position" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="user_name" jdbcType="TIMESTAMP" property="userName" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -69,7 +70,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, name, bzr_id, describe, stu_count, position, create_time
+    id, name, bzr_id, `describe`, stu_count, position, create_time
   </sql>
   <select id="selectByExample" parameterType="com.bskms.bean.ClassesExample" resultMap="BaseResultMap">
     select
@@ -103,7 +104,7 @@
   </delete>
   <insert id="insert" parameterType="com.bskms.bean.Classes">
     insert into classes (id, name, bzr_id, 
-      describe, stu_count, position, 
+      `describe`, stu_count, position, 
       create_time)
     values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{bzrId,jdbcType=VARCHAR}, 
       #{describe,jdbcType=VARCHAR}, #{stuCount,jdbcType=INTEGER}, #{position,jdbcType=VARCHAR}, 
@@ -122,7 +123,7 @@
         bzr_id,
       </if>
       <if test="describe != null">
-        describe,
+        `describe`,
       </if>
       <if test="stuCount != null">
         stu_count,
@@ -177,7 +178,7 @@
         bzr_id = #{record.bzrId,jdbcType=VARCHAR},
       </if>
       <if test="record.describe != null">
-        describe = #{record.describe,jdbcType=VARCHAR},
+        `describe` = #{record.describe,jdbcType=VARCHAR},
       </if>
       <if test="record.stuCount != null">
         stu_count = #{record.stuCount,jdbcType=INTEGER},
@@ -198,7 +199,7 @@
     set id = #{record.id,jdbcType=INTEGER},
       name = #{record.name,jdbcType=VARCHAR},
       bzr_id = #{record.bzrId,jdbcType=VARCHAR},
-      describe = #{record.describe,jdbcType=VARCHAR},
+      `describe` = #{record.describe,jdbcType=VARCHAR},
       stu_count = #{record.stuCount,jdbcType=INTEGER},
       position = #{record.position,jdbcType=VARCHAR},
       create_time = #{record.createTime,jdbcType=TIMESTAMP}
@@ -216,7 +217,7 @@
         bzr_id = #{bzrId,jdbcType=VARCHAR},
       </if>
       <if test="describe != null">
-        describe = #{describe,jdbcType=VARCHAR},
+        `describe` = #{describe,jdbcType=VARCHAR},
       </if>
       <if test="stuCount != null">
         stu_count = #{stuCount,jdbcType=INTEGER},
@@ -234,10 +235,38 @@
     update classes
     set name = #{name,jdbcType=VARCHAR},
       bzr_id = #{bzrId,jdbcType=VARCHAR},
-      describe = #{describe,jdbcType=VARCHAR},
+      `describe` = #{describe,jdbcType=VARCHAR},
       stu_count = #{stuCount,jdbcType=INTEGER},
       position = #{position,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  
+  <select id="getAllClassByLimit" parameterType="com.bskms.bean.Classes" resultMap="BaseResultMap">
+   select c.*,u.user_name from classes c
+    left join user u on c.bzr_id=user_id
+    where u.user_state=1
+   <if test="name!=null and name!=''">
+				and c.name like concat('%',#{name},'%')
+	</if>
+	<if test="userName!=null and userName!=''">
+				and u.user_name like concat('%',#{userName},'%')
+	</if>
+    <if test="limit!=null">
+			limit #{page}, #{limit}
+	</if>
+  </select>
+  
+  <select id="countAllClassByLimit" parameterType="com.bskms.bean.Classes" resultType="int">
+    select count(*) from classes c
+    left join user u on c.bzr_id=user_id
+    where u.user_state=1
+   <if test="name!=null and name!=''">
+				and c.name like concat('%',#{name},'%')
+	</if>
+	<if test="userName!=null and userName!=''">
+				and u.user_name like concat('%',#{userName},'%')
+	</if>
+  </select>
+  
 </mapper>

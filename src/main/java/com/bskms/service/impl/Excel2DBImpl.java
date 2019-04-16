@@ -90,6 +90,7 @@ public class Excel2DBImpl implements IExcel2DB {
 				String userMail = null;
 				String position = null;
 				String dept = null;
+				String userIdcard=null;
 				Integer userState = 1;
 
 				int n = 1;
@@ -148,6 +149,14 @@ public class Excel2DBImpl implements IExcel2DB {
 				}
 				n++;
 				if (row != null && row.getCell(n) != null && !row.getCell(n).toString().trim().equals("")) {
+					userIdcard = row.getCell(n).toString().trim();
+					if(userIdcard.length()!=18) {
+						logger.info("{}--->{}", file.getOriginalFilename(), "身份证号码不正确！");
+						return "身份证号码不正确！";
+					}
+				}
+				n++;
+				if (row != null && row.getCell(n) != null && !row.getCell(n).toString().trim().equals("")) {
 					Double d = Double.parseDouble(row.getCell(n).toString().trim());
 					userState = d.intValue();
 					if (userState < 0 || userState > 2 && userState != 9) {
@@ -169,7 +178,7 @@ public class Excel2DBImpl implements IExcel2DB {
 				user.setUserSex(userSex);
 				user.setUserState(userState);
 				user.setUserTel(userTel);
-
+				user.setUserIdcard(userIdcard);
 				userService.addUser(user);
 			}
 			wb.close();

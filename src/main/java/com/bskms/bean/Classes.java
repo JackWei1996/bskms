@@ -2,7 +2,7 @@ package com.bskms.bean;
 
 import java.util.Date;
 
-public class Classes {
+public class Classes extends BaseBean{
     private Integer id;
 
     private String name;
@@ -16,8 +16,18 @@ public class Classes {
     private String position;
 
     private Date createTime;
+    
+    private String userName;
 
-    public Integer getId() {
+    public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+
+	public Integer getId() {
         return id;
     }
 

@@ -20,4 +20,5 @@ import org.springframework.web.multipart.MultipartFile;
  */
 public interface IExcel2DB {
 	public String importUserExcel2DB(MultipartFile file);
+	
 }
