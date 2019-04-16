@@ -69,7 +69,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, name, count, price, from, `describe`, create_time
+    id, name, count, price, `from`, `describe`, create_time
   </sql>
   <select id="selectByExample" parameterType="com.bskms.bean.MaterialExample" resultMap="BaseResultMap">
     select
@@ -103,7 +103,7 @@
   </delete>
   <insert id="insert" parameterType="com.bskms.bean.Material">
     insert into material (id, name, count, 
-      price, from, `describe`, 
+      price, `from`, `describe`, 
       create_time)
     values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{count,jdbcType=INTEGER}, 
       #{price,jdbcType=DECIMAL}, #{from,jdbcType=VARCHAR}, #{describe,jdbcType=VARCHAR}, 
@@ -125,7 +125,7 @@
         price,
       </if>
       <if test="from != null">
-        from,
+        `from`,
       </if>
       <if test="describe != null">
         `describe`,
@@ -180,7 +180,7 @@
         price = #{record.price,jdbcType=DECIMAL},
       </if>
       <if test="record.from != null">
-        from = #{record.from,jdbcType=VARCHAR},
+        `from` = #{record.from,jdbcType=VARCHAR},
       </if>
       <if test="record.describe != null">
         `describe` = #{record.describe,jdbcType=VARCHAR},
@@ -199,7 +199,7 @@
       name = #{record.name,jdbcType=VARCHAR},
       count = #{record.count,jdbcType=INTEGER},
       price = #{record.price,jdbcType=DECIMAL},
-      from = #{record.from,jdbcType=VARCHAR},
+      `from` = #{record.from,jdbcType=VARCHAR},
       `describe` = #{record.describe,jdbcType=VARCHAR},
       create_time = #{record.createTime,jdbcType=TIMESTAMP}
     <if test="_parameter != null">
@@ -219,7 +219,7 @@
         price = #{price,jdbcType=DECIMAL},
       </if>
       <if test="from != null">
-        from = #{from,jdbcType=VARCHAR},
+        `from` = #{from,jdbcType=VARCHAR},
       </if>
       <if test="describe != null">
         `describe` = #{describe,jdbcType=VARCHAR},
@@ -235,7 +235,7 @@
     set name = #{name,jdbcType=VARCHAR},
       count = #{count,jdbcType=INTEGER},
       price = #{price,jdbcType=DECIMAL},
-      from = #{from,jdbcType=VARCHAR},
+      `from` = #{from,jdbcType=VARCHAR},
       `describe` = #{describe,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
@@ -248,7 +248,7 @@
 		and name like concat('%',#{name},'%')
 	</if>
 	<if test="from!=null and from!=''">
-		and from like concat('%',#{from},'%')
+		and `from` like concat('%',#{from},'%')
 	</if>
      <if test="limit!=null">
 			limit #{page}, #{limit}
@@ -262,7 +262,7 @@
 		and name like concat('%',#{name},'%')
 	</if>
 	<if test="from!=null and from!=''">
-		and from like concat('%',#{from},'%')
+		and `from` like concat('%',#{from},'%')
 	</if>
   </select>
 </mapper>
