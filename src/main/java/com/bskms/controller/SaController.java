@@ -20,6 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.bskms.bean.ClaTea;
 import com.bskms.bean.Classes;
+import com.bskms.bean.Foot;
 import com.bskms.bean.Material;
 import com.bskms.bean.Page;
 import com.bskms.bean.Pay;
@@ -29,6 +30,7 @@ import com.bskms.model.LayuiMap;
 import com.bskms.model.ResultMap;
 import com.bskms.model.UserParameter;
 import com.bskms.service.ClassService;
+import com.bskms.service.FootService;
 import com.bskms.service.IExcel2DB;
 import com.bskms.service.MaterialService;
 import com.bskms.service.PageRoleService;
@@ -64,6 +66,8 @@ public class SaController {
 	private PayService payService;
 	@Autowired
 	private MaterialService materialService;
+	@Autowired
+	private FootService footService;
 
 	private final Logger logger = LoggerFactory.getLogger(SaController.class);
 
@@ -904,5 +908,102 @@ public class SaController {
 					return "ERROR";
 				}
 			}
+			
+			//菜单管理
+			
+			/**
+			 * Method name: footMG <BR>
+			 * Description: 物资管理页面 <BR>
+			 * 
+			 * @return String<BR>
+			 */
+			@RequestMapping(value = "/footMG")
+			public String footMG() {
+				return "sa/foot";
+			}
+			
+			/**
+			 * Method name: getAllFootByLimit <BR>
+			 * Description: 根据条件获取所有教师 <BR>
+			 * 
+			 * @param userParameter
+			 * @return Object<BR>
+			 */
+			@RequestMapping("/getAllFootByLimit")
+			@ResponseBody
+			public Object getAllFootByLimit(Foot foot) {
+				return footService.getAllFootByLimit(foot);
+			}
+			
+			/**
+			 * Method name: addFootPage <BR>
+			 * Description: 增加教师界面 <BR>
+			 * 
+			 * @return String<BR>
+			 */
+			@RequestMapping(value = "/addFootPage")
+			public String addFootPage(Integer id, Model model) {
+				model.addAttribute("manageFoot", id);
+				if (null != id) {
+					Foot foot = footService.selectByPrimaryKey(id);
+					model.addAttribute("manageFoot", foot);
+				}
+				
+				return "sa/FootAdd";
+			}
+			
+			/**
+			 * Method name: addFoot <BR>
+			 * Description: 教师添加 <BR>
+			 * 
+			 * @param user
+			 * @return String<BR>
+			 */
+			@ResponseBody
+			@RequestMapping("/addFoot")
+			public String addFoot(Foot foot) {
+				try {
+					foot.setCreateTime(new Date());
+					footService.addFoot(foot);
+					return "SUCCESS";
+				} catch (Exception e) {
+					return "ERR";
+				}
+			}
 
+			/**
+			 * Method name: updateFoot <BR>
+			 * Description: 更新教师 <BR>
+			 * 
+			 * @param user
+			 * @return String<BR>
+			 */
+			@ResponseBody
+			@RequestMapping("/updateFoot")
+			public String updateFoot(Foot foot) {
+				return footService.updateFoot(foot);
+			}
+			
+			/**
+			 * Method name: delFood <BR>
+			 * Description: 批量删除教师<BR>
+			 * 
+			 * @param ids
+			 * @return String<BR>
+			 */
+			@RequestMapping(value = "delFood")
+			@ResponseBody
+			@Transactional
+			public String delFood(String[] ids) {
+				try {
+					for (String id : ids) {
+						footService.delFootById(Integer.parseInt(id));
+					}
+					return "SUCCESS";
+				} catch (Exception e) {
+					logger.error("根据班级id删除异常", e);
+					TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+					return "ERROR";
+				}
+			}
 }

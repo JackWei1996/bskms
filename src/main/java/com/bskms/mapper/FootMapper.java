@@ -27,4 +27,8 @@ public interface FootMapper {
     int updateByPrimaryKeySelective(Foot record);
 
     int updateByPrimaryKey(Foot record);
+
+	List<Foot> getAllFootByLimit(Foot foot);
+
+	int countAllFootByLimit(Foot foot);
 }

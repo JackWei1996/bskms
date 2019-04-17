@@ -7,6 +7,8 @@
     <result column="lunch" jdbcType="VARCHAR" property="lunch" />
     <result column="dinner" jdbcType="VARCHAR" property="dinner" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="startTime" jdbcType="TIMESTAMP" property="startTime" />
+    <result column="endTime" jdbcType="TIMESTAMP" property="endTime" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -208,4 +210,29 @@
       create_time = #{createTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  
+  <select id="getAllFootByLimit" parameterType="com.bskms.bean.Foot" resultMap="BaseResultMap">
+   select * from foot
+   WHERE 1=1
+   <if test="startTime!=null and startTime!=''">
+		and create_time &gt; #{startTime,jdbcType=TIMESTAMP}
+	</if>
+	<if test="endTime!=null and endTime!=''">
+		and create_time &lt; #{endTime,jdbcType=TIMESTAMP}
+	</if>
+     <if test="limit!=null">
+			limit #{page}, #{limit}
+	</if>
+  </select>
+  
+   <select id="countAllFootByLimit" parameterType="com.bskms.bean.Foot" resultType="int">
+     select count(*) from foot
+   WHERE 1=1
+   <if test="startTime!=null and startTime!=''">
+		and create_time &gt; #{startTime,jdbcType=TIMESTAMP}
+	</if>
+	<if test="endTime!=null and endTime!=''">
+		and create_time &lt; #{endTime,jdbcType=TIMESTAMP}
+	</if>
+  </select>
 </mapper>

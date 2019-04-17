@@ -295,10 +295,10 @@
    left join user u on p.name=u.user_id
    where u.user_state=1
      <if test="minBase!=null and minBase!=''">
-		and p.base > #{minBase,jdbcType=DOUBLE}
+		and p.base &gt; #{minBase,jdbcType=DOUBLE}
 	</if>
-	 <if test="minBase!=null and base!=''">
-		and p.base > #{minBase,jdbcType=DOUBLE}
+	 <if test="minBase!=null and maxBase!=''">
+		and p.base &lt; #{maxBase,jdbcType=DOUBLE}
 	</if>
     <if test="limit!=null">
 		limit #{page}, #{limit}
@@ -308,8 +308,11 @@
       select count(*) from pay p
    left join user u on p.name=u.user_id
    where u.user_state=1
-     <if test="base!=null and base!=''">
-				and p.base between #{minBase,jdbcType=DOUBLE} and #{maxBase,jdbcType=DOUBLE}
+   <if test="minBase!=null and minBase!=''">
+		and p.base &gt; #{minBase,jdbcType=DOUBLE}
+	</if>
+	 <if test="minBase!=null and maxBase!=''">
+		and p.base &lt; #{maxBase,jdbcType=DOUBLE}
 	</if>
   </select>
 </mapper>
