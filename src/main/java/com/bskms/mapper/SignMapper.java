@@ -27,4 +27,8 @@ public interface SignMapper {
     int updateByPrimaryKeySelective(Sign record);
 
     int updateByPrimaryKey(Sign record);
+
+	List<Sign> getAllSignByLimit(Sign signParameter);
+
+	int countAllSignByLimit(Sign signParameter);
 }

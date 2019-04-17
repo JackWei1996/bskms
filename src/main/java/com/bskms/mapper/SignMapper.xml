@@ -9,6 +9,9 @@
     <result column="type" jdbcType="INTEGER" property="type" />
     <result column="kqr_type" jdbcType="INTEGER" property="kqrType" />
     <result column="sign_in" jdbcType="TIMESTAMP" property="signIn" />
+    <result column="userName" jdbcType="VARCHAR" property="userName" />
+    <result column="startTime" jdbcType="TIMESTAMP" property="startTime" />
+    <result column="endTime" jdbcType="TIMESTAMP" property="endTime" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -240,4 +243,32 @@
       sign_in = #{signIn,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  
+  <select id="getAllSignByLimit" parameterType="com.bskms.bean.Notice" resultMap="BaseResultMap">
+  select s.*,u.user_name from sign s
+left join user u on s.kqr_id=u.user_id
+where s.kqr_type = u.user_state
+
+     <if test="startTime!=null and startTime!=''">
+				and sign_in &gt; #{startTime,jdbcType=TIMESTAMP}
+	</if>
+	<if test="endTime!=null and endTime!=''">
+				and sign_in &lt; #{endTime,jdbcType=TIMESTAMP}
+	</if>
+    <if test="limit!=null">
+			limit #{page}, #{limit}
+	</if>
+  </select>
+  <select id="countAllSignByLimit" parameterType="com.bskms.bean.Notice" resultType="int">
+    select count(*) from sign s
+left join user u on s.kqr_id=u.user_id
+where s.kqr_type = u.user_state
+
+     <if test="startTime!=null and startTime!=''">
+				and sign_in &gt; #{startTime,jdbcType=TIMESTAMP}
+	</if>
+	<if test="endTime!=null and endTime!=''">
+				and sign_in &lt; #{endTime,jdbcType=TIMESTAMP}
+	</if>
+  </select>
 </mapper>

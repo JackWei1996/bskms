@@ -12,39 +12,38 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
-import com.bskms.bean.Foot;
 import com.bskms.bean.Notice;
-
-import com.bskms.mapper.NoticeMapper;
+import com.bskms.bean.Sign;
+import com.bskms.mapper.SignMapper;
 import com.bskms.model.MMGridPageVoBean;
-import com.bskms.service.NoticeService;
+import com.bskms.service.SignService;
 
 /**
  * @author samsung
  *
  */
 @Service
-public class NoticeServiceImpl implements NoticeService{
+public class SignServiceImpl implements SignService{
 	@Autowired
-	private NoticeMapper noticeMapper;
+	private SignMapper signMapper;
 	
 	private final Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
-	
+
 	@Override
-	public Object getAllNoticeByLimit(Notice noticeParameter) {
+	public Object getAllSignByLimit(Sign signParameter) {
 		int size = 0;
 
-		Integer begin = (noticeParameter.getPage() - 1) * noticeParameter.getLimit();
-		noticeParameter.setPage(begin);
+		Integer begin = (signParameter.getPage() - 1) * signParameter.getLimit();
+		signParameter.setPage(begin);
 
-		List<Notice> rows = new ArrayList<>();
+		List<Sign> rows = new ArrayList<>();
 		try {
-			rows = noticeMapper.getAllNoticeByLimit(noticeParameter);
-			size = noticeMapper.countAllNoticeByLimit(noticeParameter);
+			rows = signMapper.getAllSignByLimit(signParameter);
+			size = signMapper.countAllSignByLimit(signParameter);
 		} catch (Exception e) {
 			logger.error("根据查询班级 异常", e);
 		}
-		MMGridPageVoBean<Notice> vo = new MMGridPageVoBean<>();
+		MMGridPageVoBean<Sign> vo = new MMGridPageVoBean<>();
 		vo.setTotal(size);
 		vo.setRows(rows);
 
@@ -52,23 +51,23 @@ public class NoticeServiceImpl implements NoticeService{
 	}
 
 	@Override
-	public Notice selectByPrimaryKey(Integer id) {
-		return noticeMapper.selectByPrimaryKey(id);
+	public Sign selectByPrimaryKey(Integer id) {
+		return signMapper.selectByPrimaryKey(id);
 	}
 
 	@Override
-	public void addNotice(Notice notice) {
+	public void addSign(Sign sign) {
 		try {
-			noticeMapper.insert(notice);
+			signMapper.insert(sign);
 			}catch (Exception e) {
 				e.printStackTrace();
 		}
 	}
 
 	@Override
-	public String updateStu(Notice notice) {
+	public String updateSign(Sign sign) {
 		try {
-			noticeMapper.updateByPrimaryKeySelective(notice);
+			signMapper.updateByPrimaryKeySelective(sign);
 			return "SUCCESS";
 		} catch (Exception e) {
 			logger.error("根据用户id更新用户异常", e);
@@ -78,13 +77,12 @@ public class NoticeServiceImpl implements NoticeService{
 	}
 
 	@Override
-	public void delNoticeById(Integer parseInt) {
+	public void delSignById(Integer parseInt) {
 		try {
-			noticeMapper.deleteByPrimaryKey(parseInt);
+			signMapper.deleteByPrimaryKey(parseInt);
 		} catch (Exception e) {
 			logger.error("删除用户出现异常", e);
 			TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
 		}
 	}
-
 }

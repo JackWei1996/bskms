@@ -27,4 +27,8 @@ public interface NoticeMapper {
     int updateByPrimaryKeySelective(Notice record);
 
     int updateByPrimaryKey(Notice record);
+
+	List<Notice> getAllNoticeByLimit(Notice noticeParameter);
+
+	int countAllNoticeByLimit(Notice noticeParameter);
 }

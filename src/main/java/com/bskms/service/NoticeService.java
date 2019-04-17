@@ -19,6 +19,6 @@ public interface NoticeService {
 
 	String updateStu(Notice notice);
 
-	void delNoticeById(int parseInt);
+	void delNoticeById(Integer parseInt);
 
 }

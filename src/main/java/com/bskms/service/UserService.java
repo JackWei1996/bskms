@@ -42,4 +42,6 @@ public interface UserService {
 	String getName(String issueReporter);
 
 	List<User> selectAllTea();
+
+	List<User> selectAllUser();
 }

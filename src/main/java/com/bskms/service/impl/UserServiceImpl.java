@@ -476,4 +476,10 @@ public class UserServiceImpl implements UserService {
 		
 		return userMapper.selectAllTea();
 	}
+
+	@Override
+	public List<User> selectAllUser() {
+		
+		return userMapper.selectAllUser();
+	}
 }

@@ -466,4 +466,7 @@
 	<select id="selectAllTea" parameterType="com.bskms.model.UserParameter" resultMap="BaseResultMap">
 	 select * from user where user_state=1
 	</select>
+	<select id="selectAllUser" parameterType="com.bskms.model.UserParameter" resultMap="BaseResultMap">
+	 select * from user
+	</select>
 </mapper>

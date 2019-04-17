@@ -6,6 +6,8 @@
     <result column="title" jdbcType="VARCHAR" property="title" />
     <result column="content" jdbcType="VARCHAR" property="content" />
     <result column="creat_time" jdbcType="TIMESTAMP" property="creatTime" />
+    <result column="startTime" jdbcType="TIMESTAMP" property="startTime" />
+    <result column="endTime" jdbcType="TIMESTAMP" property="endTime" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -193,4 +195,28 @@
       creat_time = #{creatTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  
+   <select id="getAllNoticeByLimit" parameterType="com.bskms.bean.Notice" resultMap="BaseResultMap">
+   select * from notice
+    where 1=1
+     <if test="startTime!=null and startTime!=''">
+				and creat_time &gt; #{startTime,jdbcType=TIMESTAMP}
+	</if>
+	<if test="endTime!=null and endTime!=''">
+				and creat_time &lt; #{endTime,jdbcType=TIMESTAMP}
+	</if>
+    <if test="limit!=null">
+			limit #{page}, #{limit}
+	</if>
+  </select>
+  <select id="countAllNoticeByLimit" parameterType="com.bskms.bean.Notice" resultType="int">
+    select count(*) from notice
+    where 1=1
+     <if test="startTime!=null and startTime!=''">
+		and creat_time &gt; #{startTime,jdbcType=TIMESTAMP}
+	</if>
+	<if test="endTime!=null and endTime!=''">
+		and creat_time &lt; #{endTime,jdbcType=TIMESTAMP}
+	</if>
+  </select>
 </mapper>

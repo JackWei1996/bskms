@@ -2,7 +2,7 @@ package com.bskms.bean;
 
 import java.util.Date;
 
-public class Notice {
+public class Notice extends BaseBean{
     private Integer id;
 
     private String title;
@@ -10,8 +10,29 @@ public class Notice {
     private String content;
 
     private Date creatTime;
+    
+    private String startTime;
+    
+    private String endTime;
 
-    public Integer getId() {
+    
+    public String getStartTime() {
+		return startTime;
+	}
+
+	public void setStartTime(String startTime) {
+		this.startTime = startTime;
+	}
+
+	public String getEndTime() {
+		return endTime;
+	}
+
+	public void setEndTime(String endTime) {
+		this.endTime = endTime;
+	}
+
+	public Integer getId() {
         return id;
     }
 

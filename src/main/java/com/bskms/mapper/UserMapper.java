@@ -48,4 +48,6 @@ public interface UserMapper {
 	String getName(@Param("userId") String userId);
 
 	List<User> selectAllTea();
+
+	List<User> selectAllUser();
 }
