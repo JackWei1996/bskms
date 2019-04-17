@@ -2,6 +2,8 @@ package com.bskms.mapper;
 
 import com.bskms.bean.Children;
 import com.bskms.bean.ChildrenExample;
+import com.bskms.bean.Classes;
+
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
@@ -27,4 +29,8 @@ public interface ChildrenMapper {
     int updateByPrimaryKeySelective(Children record);
 
     int updateByPrimaryKey(Children record);
+
+	List<Children> getAllStudentByLimit(Children stuParameter);
+
+	int countAllStudentByLimit(Children stuParameter);
 }

@@ -10,6 +10,7 @@
     <result column="hobby" jdbcType="VARCHAR" property="hobby" />
     <result column="food" jdbcType="VARCHAR" property="food" />
     <result column="entrance" jdbcType="TIMESTAMP" property="entrance" />
+    <result column="className" jdbcType="VARCHAR" property="className" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -255,4 +256,30 @@
       entrance = #{entrance,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <select id="getAllStudentByLimit" parameterType="com.bskms.bean.Children" resultMap="BaseResultMap">
+	  select stu.*,cla.name className from children stu
+	  left join classes cla on stu.class_id=cla.id
+	  where 1=1
+	  <if test="name!=null and name!=''">
+				and stu.name like concat('%',#{name},'%')
+	 </if>
+	  <if test="className!=null and className!=''">
+				and cla.name like concat('%',#{className},'%')
+	 </if>
+	   <if test="limit!=null">
+			limit #{page}, #{limit}
+	  </if>
+  </select>
+  
+   <select id="countAllStudentByLimit" parameterType="com.bskms.bean.Children" resultType="int">
+	  select count(*) from children stu
+	  left join classes cla on stu.class_id=cla.id
+	  where 1=1
+	   <if test="name!=null and name!=''">
+				and stu.name like concat('%',#{name},'%')
+	 </if>
+	  <if test="className!=null and className!=''">
+				and cla.name like concat('%',#{className},'%')
+	 </if>
+  </select>
 </mapper>

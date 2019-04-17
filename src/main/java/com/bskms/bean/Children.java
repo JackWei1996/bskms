@@ -2,7 +2,7 @@ package com.bskms.bean;
 
 import java.util.Date;
 
-public class Children {
+public class Children extends BaseBean{
     private Integer id;
 
     private String name;
@@ -18,8 +18,18 @@ public class Children {
     private String food;
 
     private Date entrance;
+    
+    private String className;
 
-    public Integer getId() {
+    public String getClassName() {
+		return className;
+	}
+
+	public void setClassName(String className) {
+		this.className = className;
+	}
+
+	public Integer getId() {
         return id;
     }
 
