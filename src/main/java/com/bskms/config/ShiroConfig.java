@@ -110,8 +110,8 @@ public class ShiroConfig {
 		// filterChainDefinitionMap.put("/user/**", "roles[\"组员, 管理员\"]");
 		// 管理员，需要角色权限 “admin”
 		filterChainDefinitionMap.put("/sa/**", "roles[超级管理员]");
-		filterChainDefinitionMap.put("/jz/**", "roleOrFilter[家长|老师|超级管理员]");
-		filterChainDefinitionMap.put("/ls/**", "roleOrFilter[老师|超级管理员]");
+		filterChainDefinitionMap.put("/jz/**", "roleOrFilter[家长|教师|超级管理员]");
+		filterChainDefinitionMap.put("/ls/**", "roleOrFilter[教师|超级管理员]");
 		// 开放登陆接口
 		filterChainDefinitionMap.put("/login", "anon");
 		filterChainDefinitionMap.put("/index", "anon");

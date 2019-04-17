@@ -62,7 +62,11 @@ public class UserServiceImpl implements UserService {
 		// 在认证提交前准备 token（令牌）
 		UsernamePasswordToken token = new UsernamePasswordToken(username, MD5.md5(password));
 		// 执行认证登陆
-		subject.login(token);
+		try {			
+			subject.login(token);
+		}catch (Exception e) {
+			return resultMap.fail().message(e.getMessage());
+		}
 		// 根据权限，指定返回数据
 		List<String> role = userRoleMapper.getRoles(username);
 		if (!role.isEmpty()) {
