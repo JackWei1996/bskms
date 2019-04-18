@@ -8,6 +8,7 @@
  */
 package com.bskms.config;
 
+import java.nio.charset.Charset;
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,9 +21,12 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import com.bskms.common.MyDateFormat;
 import com.bskms.filter.TimeFilter;
+import com.bskms.interceptor.ProcessInterceptor;
 import com.bskms.listener.ListenerTest;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -35,7 +39,12 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  * @author Aisino)weihaohao
  */
 @Configuration
-public class WebConfig {
+public class WebConfig implements WebMvcConfigurer{
+	
+	 @Override
+	 public void addInterceptors(InterceptorRegistry registry) {
+	        registry.addInterceptor(new ProcessInterceptor()); 
+	 }
 	/**
 	 * Method name: timeFilter <BR>
 	 * Description: 配置过滤器 <BR>

@@ -7,6 +7,8 @@ public class Course {
 
     private String name;
 
+    private String teaName;
+
     private Date start;
 
     private Date end;
@@ -16,6 +18,8 @@ public class Course {
     private Integer amPm;
 
     private Date createTime;
+
+    private Integer classId;
 
     public Integer getId() {
         return id;
@@ -31,6 +35,14 @@ public class Course {
 
     public void setName(String name) {
         this.name = name == null ? null : name.trim();
+    }
+
+    public String getTeaName() {
+        return teaName;
+    }
+
+    public void setTeaName(String teaName) {
+        this.teaName = teaName == null ? null : teaName.trim();
     }
 
     public Date getStart() {
@@ -71,5 +83,13 @@ public class Course {
 
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
+    }
+
+    public Integer getClassId() {
+        return classId;
+    }
+
+    public void setClassId(Integer classId) {
+        this.classId = classId;
     }
 }

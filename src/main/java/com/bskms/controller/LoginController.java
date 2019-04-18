@@ -78,14 +78,9 @@ public class LoginController {
 	 * @param password 密码
 	 * @return ResultMap<BR>
 	 */
-	@RequestMapping(value = "/login", method = RequestMethod.POST)
+	@RequestMapping(value = "/login")
 	@ResponseBody
 	public ResultMap login(String username, String password) {
-		Subject subject = SecurityUtils.getSubject();
-		User user = (User) subject.getPrincipal();
-		if (user != null) {
-			return resultMap.success().message("toMain");
-		}
 		return userService.login(username, password);
 	}
 

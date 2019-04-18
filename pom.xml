@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.jack.bskms</groupId>
 	<artifactId>bskms</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0</version>
 	<packaging>jar</packaging>
 	<name>bskms</name>
 	<description>蓝天幼儿园管理系统</description>
@@ -115,6 +115,13 @@
 			<artifactId>poi-ooxml</artifactId>
 			<version>4.0.1</version>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/com.alibaba/fastjson -->
+		<dependency>
+		    <groupId>com.alibaba</groupId>
+		    <artifactId>fastjson</artifactId>
+		    <version>1.2.57</version>
+		</dependency>
+		
 	</dependencies>
 
 	<build>

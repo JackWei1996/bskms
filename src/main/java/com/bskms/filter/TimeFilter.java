@@ -64,7 +64,7 @@ public class TimeFilter implements Filter {
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain filterChain)
 			throws IOException, ServletException {
 		// long start = System.currentTimeMillis();
-		filterChain.doFilter(request, response);
+		filterChain.doFilter(request,  	response);
 		// logger.info("filter 耗时：{}",(System.currentTimeMillis() - start));
 	}
 

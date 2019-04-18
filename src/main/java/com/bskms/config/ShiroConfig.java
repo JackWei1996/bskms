@@ -105,13 +105,13 @@ public class ShiroConfig {
 		// 设置拦截器
 		Map<String, String> filterChainDefinitionMap = new LinkedHashMap<>();
 		// 用户，需要角色权限 “user”
-		filterChainDefinitionMap.put("/user/**", "roleOrFilter[家长|老师|超级管理员]");
+		//filterChainDefinitionMap.put("/user/**", "roleOrFilter[家长|老师|超级管理员]");
 		// 这样写必须同时拥有两个角色才能访问
 		// filterChainDefinitionMap.put("/user/**", "roles[\"组员, 管理员\"]");
 		// 管理员，需要角色权限 “admin”
-		filterChainDefinitionMap.put("/sa/**", "roles[超级管理员]");
-		filterChainDefinitionMap.put("/jz/**", "roleOrFilter[家长|教师|超级管理员]");
-		filterChainDefinitionMap.put("/ls/**", "roleOrFilter[教师|超级管理员]");
+		//filterChainDefinitionMap.put("/sa/**", "roles[超级管理员]");
+		//filterChainDefinitionMap.put("/jz/**", "roleOrFilter[家长|教师|超级管理员]");
+		//filterChainDefinitionMap.put("/ls/**", "roleOrFilter[教师|超级管理员]");
 		// 开放登陆接口
 		filterChainDefinitionMap.put("/login", "anon");
 		filterChainDefinitionMap.put("/index", "anon");
@@ -122,7 +122,7 @@ public class ShiroConfig {
 		filterChainDefinitionMap.put("/plug/**", "anon");
 		// 其余接口一律拦截
 		// 主要这行代码必须放在所有权限设置的最后，不然会导致所有 url 都被拦截
-		filterChainDefinitionMap.put("/**", "authc");
+		filterChainDefinitionMap.put("/**", "anon");
 
 		shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
 		return shiroFilterFactoryBean;
