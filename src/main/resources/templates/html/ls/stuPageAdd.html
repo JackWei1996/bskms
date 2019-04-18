@@ -64,8 +64,13 @@ function getTime(val){
 	
 var manageStu = [[${manageStu}]];
 var cla = [[${cla}]];
+var user = [[${user}]];
+var us = [[${uc}]];
 
-
+console.log(manageStu);
+console.log(cla);
+console.log(user);
+console.log(us);
 
 $(function(){
 	$(".re_password").hide();
@@ -74,13 +79,16 @@ $(function(){
 			$("#classId").append("<option value='"+cla[i].id+"'>"+cla[i].name+"</option>");
 		 }
 	}
-	
+	if(user){
+		 for(var i=0;i<user.length;i++){
+			$("#userId").append("<option value='"+user[i].userId+"'>"+user[i].userName+"</option>");
+		 }
+	}
    	if(manageStu){
    		//修改
    		$(".top_page_name").text("修改学生");
    		
    		//回填值
-   		console.log(manageStu);
    		$("#name").val(manageStu.name);
    		$(":radio[name='sex'][value='"+manageStu.sex+"']").attr("checked", "checked");
    		$("#classId option[value='"+manageStu.classId+"']").attr("selected","selected");
@@ -88,7 +96,12 @@ $(function(){
    		$("#hobby").val(manageStu.hobby);
    		$("#food").val(manageStu.food);
    		$("#entrance").val(manageStu.entrance.split("T")[0]);
-   		
+   		if(us){
+	   		$("#userId option[value='"+us.userId+"']").attr("selected","selected");
+	   		
+	   		$(":radio[name='isFaMa'][value='"+us.isFaMa+"']").attr("checked", "checked");
+	   		$(":radio[name='isJinji'][value='"+us.isJinji+"']").attr("checked", "checked");
+   		}
    	}
 	
 	//开始验证     
@@ -135,13 +148,17 @@ function save(){
 	param.hobby = $.trim($("#hobby").val());
 	param.food = $.trim($("#food").val());
 	
+	param.userId = $.trim($("#userId").val());
+	param.isFaMa = $(":radio[name='isFaMa']:checked").val();
+	param.isJinji = $(":radio[name='isJinji']:checked").val();
 	var urlStr = "/ls/addStu";
 	
 	if(manageStu){
 		//修改
-		param.id = manageStu.id
+		if(us){			
+			param.ucId = us.id;
+		}
 		urlStr = "/ls/updateStudent";
-		
 	}
 	
 	layer.confirm('确认保存吗？', {icon: 3, title:'提示'}, function(index){
@@ -151,7 +168,6 @@ function save(){
     		data:param,
     		url:urlStr,
     		success:function(data){
-    			console.log(data);
     			if(data == "SUCCESS"){
     				layer.alert('保存成功！', {icon: 1}, function(indexOk){
        					parent.search();
@@ -256,6 +272,48 @@ function save(){
 				</td>
 				<td>
 					<input id="entrance" type="text" name="entrance" class="input_0" />
+					<span class="validation_span"></span>
+				</td>
+			</tr>
+			
+			<tr>
+				<td align="right" >
+					<span class="need_0">*</span>
+					<span class="text_ad_0">家长：</span>
+				</td>
+				<td>
+					 <div class="layui-input-inline">
+					        <select id="userId" name="userId" lay-filter="userId" lay-verify="required" lay-search="" class="layui-form">
+					         	<option value="" selected="selected">---请选择家长---</option>
+					        </select>
+		      		</div>
+				</td>
+			</tr>
+			
+			<tr>
+				<td align="right" >
+					<span class="need_0">*</span>
+					<span class="text_ad_0">亲属：</span>
+				</td>
+				<td>
+					<input type="radio" id="isFaMa1" name="isFaMa" value="1" checked="checked" style="vertical-align:middle;" />
+					<span style="vertical-align:middle;" >父亲</span>
+					<input type="radio" id="isFaMa2" name="isFaMa" value="0" style="margin-left:10px;vertical-align:middle;" />
+					<span style="vertical-align:middle;" >母亲</span>
+					<span class="validation_span"></span>
+				</td>
+			</tr>
+			
+			<tr>
+				<td align="right" >
+					<span class="need_0">*</span>
+					<span class="text_ad_0">紧急联系人：</span>
+				</td>
+				<td>
+					<input type="radio" id="isJinji1" name="isJinji" value="1" checked="checked" style="vertical-align:middle;" />
+					<span style="vertical-align:middle;" >是</span>
+					<input type="radio" id="isJinji1" name="isJinji" value="0" style="margin-left:10px;vertical-align:middle;" />
+					<span style="vertical-align:middle;" >否</span>
 					<span class="validation_span"></span>
 				</td>
 			</tr>

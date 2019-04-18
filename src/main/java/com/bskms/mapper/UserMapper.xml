@@ -477,4 +477,9 @@
 		ON ct.tec_id = u.user_id
 		WHERE ct.class_id = #{classId,jdbcType=INTEGER}
 	</select>
+	<select id="selectAllJiazhang" parameterType="com.bskms.model.UserParameter" resultMap="BaseResultMap">
+		select * 
+		from user u
+		where u.user_state=2
+	</select>
 </mapper>

@@ -1,6 +1,7 @@
 package com.bskms.service;
 import java.util.List;
 import com.bskms.bean.User;
+import com.bskms.bean.UserChildren;
 import com.bskms.model.ResultMap;
 import com.bskms.model.UserParameter;
 
@@ -44,4 +45,6 @@ public interface UserService {
 	List<User> selectAllTea();
 
 	List<User> selectAllUser();
+
+	List<User> selectAllJiazhang();
 }

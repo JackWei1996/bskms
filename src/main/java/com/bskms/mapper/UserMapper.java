@@ -52,4 +52,6 @@ public interface UserMapper {
 	List<User> selectAllUser();
 
 	User getBZR(@Param("classId") Integer classId);
+
+	List<User> selectAllJiazhang();
 }

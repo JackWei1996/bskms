@@ -11,6 +11,10 @@
     <result column="food" jdbcType="VARCHAR" property="food" />
     <result column="entrance" jdbcType="TIMESTAMP" property="entrance" />
     <result column="className" jdbcType="VARCHAR" property="className" />
+    <result column="userId" jdbcType="VARCHAR" property="userId" />
+    <result column="childrenId" jdbcType="INTEGER" property="childrenId" />
+    <result column="isFaMa" jdbcType="INTEGER" property="isFaMa" />
+    <result column="isJinji" jdbcType="INTEGER" property="isJinji" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -103,7 +107,7 @@
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.bskms.bean.Children">
+  <insert id="insert" parameterType="com.bskms.bean.Children" useGeneratedKeys="true" keyProperty="id">
     insert into children (id, name, sex, 
       birthday, class_id, hobby, 
       food, entrance)

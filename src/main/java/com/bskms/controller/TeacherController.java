@@ -4,10 +4,10 @@
 package com.bskms.controller;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import org.apache.logging.log4j.util.PropertiesUtil;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,18 +19,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.bskms.bean.Children;
-import com.bskms.bean.ClaTea;
 import com.bskms.bean.Classes;
 import com.bskms.bean.Notice;
-import com.bskms.bean.Page;
-import com.bskms.bean.Pay;
 import com.bskms.bean.Sign;
 import com.bskms.bean.User;
+import com.bskms.bean.UserChildren;
+import com.bskms.model.TongJi;
 import com.bskms.service.ClassService;
 import com.bskms.service.NoticeService;
-import com.bskms.service.PageService;
 import com.bskms.service.SignService;
 import com.bskms.service.StudentService;
+import com.bskms.service.UserChildrenService;
 import com.bskms.service.UserService;
 import com.bskms.utils.PropertyUtil;
 
@@ -52,6 +51,8 @@ public class TeacherController {
 	private SignService signService;
 	@Autowired
 	private UserService userService;
+	@Autowired
+	private UserChildrenService userChildrenService;
 	
 	@RequestMapping("/stu")
 	public String stu(Model model) {
@@ -95,10 +96,17 @@ public class TeacherController {
 			model.addAttribute("manageStu", id);
 			if (null != id) {
 				Children student = studentService.selectByPrimaryKey(id);
+				//UserChildren userChild = userChildrenService.selectById(id);
 				model.addAttribute("manageStu", student);
+				//model.addAttribute("manageChild", userChild);
+				UserChildren uc = userChildrenService.selectByUCId(student.getId());
+				model.addAttribute("uc", uc);
 			}
 			List<Classes> classes=classService.selectAllClasses();
 			model.addAttribute("cla", classes);
+			
+			List<User> user=userService.selectAllJiazhang();
+			model.addAttribute("user", user);
 			return "ls/StuPageAdd";
 		}
 		
@@ -115,12 +123,21 @@ public class TeacherController {
 			try {
 				
 				studentService.addStudent(student);
+				addUserChildren(student);
 				return "SUCCESS";
 			} catch (Exception e) {
 				return "ERR";
 			}
 		}
-
+        public void addUserChildren(Children student) {
+        	UserChildren userChildern = new UserChildren();
+        	userChildern.setChildrenId(student.getId());
+        	userChildern.setUserId(student.getUserId());
+        	userChildern.setIsFaMa(student.getIsFaMa());
+        	userChildern.setIsJinji(student.getIsJinji());
+        	userChildrenService.addUserChildren(userChildern);
+        	
+        }
 		/**
 		 * Method name: updateStudent <BR>
 		 * Description: 更新教师 <BR>
@@ -131,6 +148,13 @@ public class TeacherController {
 		@ResponseBody
 		@RequestMapping("/updateStudent")
 		public String updateStudent(Children studnet) {
+			UserChildren uc = new UserChildren();
+			uc.setId(studnet.getUcId());
+			uc.setChildrenId(studnet.getId());
+			uc.setIsFaMa(studnet.getIsFaMa());
+			uc.setIsJinji(studnet.getIsJinji());
+			uc.setUserId(studnet.getUserId());
+			userChildrenService.updateUC(uc);
 			return studentService.updateStu(studnet);
 		}
 		
@@ -302,14 +326,14 @@ public class TeacherController {
 				try {
 					Date date=new Date();
 					SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss a");
+					
 					String time = formatter.format(date).split(" ")[2];
 					String time1 = formatter.format(date).split(" ")[1];
-					
 					String s=PropertyUtil.getConfigureProperties("startTime");
 					
 					if(time.equals("上午") && time1.compareTo(s)>0) {
 						sign.setState(1);
-					}else if(time.equals("下午") && time1.compareTo(s)<0) {
+					}else {
 						sign.setState(3);
 					}
 					sign.setType(1);
@@ -324,39 +348,104 @@ public class TeacherController {
 			}
 
 			/**
-			 * Method name: updateStudent <BR>
-			 * Description: 更新教师 <BR>
+			 * Method name: addStu <BR>
+			 * Description: 教师添加 <BR>
 			 * 
 			 * @param user
 			 * @return String<BR>
 			 */
 			@ResponseBody
-			@RequestMapping("/updateSign")
-			public String updateSign(Sign sign) {
-				return signService.updateSign(sign);
+			@RequestMapping("/addQianTui")
+			public String addQianTui(Sign sign) {
+			    Subject subject = SecurityUtils.getSubject();
+				User user = (User) subject.getPrincipal();
+				try {
+					Date date=new Date();
+					SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss a");
+					String time = formatter.format(date).split(" ")[2];
+					String time1 = formatter.format(date).split(" ")[1];
+					
+					String s=PropertyUtil.getConfigureProperties("endTime");
+					
+					if(time.equals("下午") && time1.compareTo(s)<0) {
+						sign.setState(1);
+					}else{
+						sign.setState(2);
+					}
+					sign.setType(2);
+					sign.setSignIn(date);
+					sign.setKqrId(user.getUserId());
+					sign.setKqrType(user.getUserState());
+					signService.addSign(sign);
+					return "SUCCESS";
+				} catch (Exception e) {
+					return "ERR";
+				}
+			}
+           //学生考勤
+			@RequestMapping(value = "/xskq")
+			public String xskq() {
+				return "ls/childSign";
 			}
 			
 			/**
-			 * Method name: delClaTea <BR>
-			 * Description: 批量删除教师<BR>
+			 * Method name: getAllSignByLimit <BR>
+			 * Description: 根据条件获取所有教师 <BR>
 			 * 
-			 * @param ids
-			 * @return String<BR>
+			 * @param userParameter
+			 * @return Object<BR>
 			 */
-			@RequestMapping(value = "delSign")
+			@RequestMapping("/getAllChildSignByLimit")
 			@ResponseBody
-			@Transactional
-			public String delSign(String[] ids) {
-				try {
-					for (String id : ids) {
-						signService.delSignById(Integer.parseInt(id));
-					}
-					return "SUCCESS";
-				} catch (Exception e) {
-					
-					TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
-					return "ERROR";
-				}
+			public Object getAllChildSignByLimit(Sign signParameter) {
+				return signService.getAllChildSignByLimit(signParameter);
 			}
 			
+			//所有老师签到的总次数统计
+			@RequestMapping(value = "/kqtj")
+			public String kqtj(Model model) {
+				List<TongJi> ts = signService.getAllTeacherCount();
+				List<String> names = new ArrayList<>();
+				List<Integer> zc =  new ArrayList<>();
+				List<Integer> tq =  new ArrayList<>();
+				List<Integer> cd =  new ArrayList<>();
+				
+				for (TongJi tongJi : ts) {
+					names.add(tongJi.getUserName());
+					zc.add(tongJi.getZhengChang());
+					tq.add(tongJi.getTiQian());
+					cd.add(tongJi.getChiDao());
+				}
+				
+				model.addAttribute("names", names);
+				model.addAttribute("zc", zc);
+				model.addAttribute("tq", tq);
+				model.addAttribute("cd", cd);
+				
+				return "ls/tongJi";
+			}
+			
+			//所有学生签到的总次数统计
+			@RequestMapping(value = "/tongJiXueSheng")
+			public String tongJiXueSheng(Model model) {
+				List<TongJi> ts = signService.getAllChildCount();
+				List<String> names = new ArrayList<>();
+				List<Integer> zc =  new ArrayList<>();
+				List<Integer> tq =  new ArrayList<>();
+				List<Integer> cd =  new ArrayList<>();
+				
+				for (TongJi tongJi : ts) {
+					names.add(tongJi.getUserName());
+					zc.add(tongJi.getZhengChang());
+					tq.add(tongJi.getTiQian());
+					cd.add(tongJi.getChiDao());
+				}
+				
+				model.addAttribute("names", names);
+				model.addAttribute("zc", zc);
+				model.addAttribute("tq", tq);
+				model.addAttribute("cd", cd);
+				
+				return "ls/tongJiXueSheng";
+			}
 }
