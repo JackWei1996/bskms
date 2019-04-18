@@ -50,4 +50,6 @@ public interface UserMapper {
 	List<User> selectAllTea();
 
 	List<User> selectAllUser();
+
+	User getBZR(@Param("classId") Integer classId);
 }

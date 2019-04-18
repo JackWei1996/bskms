@@ -20,8 +20,19 @@ public class Children extends BaseBean{
     private Date entrance;
     
     private String className;
+    
+    private String csrq;
+    
 
-    public String getClassName() {
+    public String getCsrq() {
+		return csrq;
+	}
+
+	public void setCsrq(String csrq) {
+		this.csrq = csrq;
+	}
+
+	public String getClassName() {
 		return className;
 	}
 

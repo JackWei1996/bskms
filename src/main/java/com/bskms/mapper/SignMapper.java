@@ -31,4 +31,7 @@ public interface SignMapper {
 	List<Sign> getAllSignByLimit(Sign signParameter);
 
 	int countAllSignByLimit(Sign signParameter);
+
+	List<Sign> getSign(@Param("type") int type, @Param("cid") String cid);
+
 }

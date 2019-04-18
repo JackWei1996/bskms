@@ -235,4 +235,11 @@
 		and create_time &lt; #{endTime,jdbcType=TIMESTAMP}
 	</if>
   </select>
+  
+  <select id="getNowFoot" parameterType="java.lang.String" resultMap="BaseResultMap">
+   	SELECT * 
+	FROM foot 
+	WHERE create_time &gt;= #{s,jdbcType=TIMESTAMP}
+	AND create_time &lt;= #{e,jdbcType=TIMESTAMP}
+  </select>
 </mapper>

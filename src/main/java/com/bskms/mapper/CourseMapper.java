@@ -27,4 +27,6 @@ public interface CourseMapper {
     int updateByPrimaryKeySelective(Course record);
 
     int updateByPrimaryKey(Course record);
+
+	Course getNowCourse(@Param("classId")Integer classId, @Param("s")String s, @Param("d")String d);
 }

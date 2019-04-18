@@ -469,4 +469,12 @@
 	<select id="selectAllUser" parameterType="com.bskms.model.UserParameter" resultMap="BaseResultMap">
 	 select * from user
 	</select>
+	
+	<select id="getBZR" parameterType="int" resultMap="BaseResultMap">
+		SELECT u.*
+		FROM user u
+		LEFT JOIN cla_tea ct
+		ON ct.tec_id = u.user_id
+		WHERE ct.class_id = #{classId,jdbcType=INTEGER}
+	</select>
 </mapper>

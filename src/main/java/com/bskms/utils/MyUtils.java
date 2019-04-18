@@ -301,7 +301,7 @@ public class MyUtils {
 
 	/**
 	 * Method name: getStringDate <BR>
-	 * Description: 根据字符串转成日期类型yyyt-MM-dd <BR>
+	 * Description: 根据字符串转成日期类型yyyt-MM-dd HH:mm:ss<BR>
 	 * 
 	 * @param time
 	 * @return Date<BR>
@@ -344,6 +344,16 @@ public class MyUtils {
 		Calendar ca = Calendar.getInstance();
 		ca.set(Calendar.DAY_OF_MONTH, ca.getActualMaximum(Calendar.DAY_OF_MONTH));
 		return format.format(ca.getTime());
+	}
+	
+	/**
+	 * 根据日期对象获取yyyy年MM月dd字符串
+	 * @param date
+	 * @return
+	 */
+	public static String getDate2String(Date date) {
+		Format format = new SimpleDateFormat("MM月dd日  HH时mm分ss秒");
+		return format.format(date);
 	}
 
 }

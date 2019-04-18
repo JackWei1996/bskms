@@ -14,7 +14,7 @@ import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
 import com.bskms.bean.Foot;
 import com.bskms.bean.Notice;
-
+import com.bskms.bean.NoticeExample;
 import com.bskms.mapper.NoticeMapper;
 import com.bskms.model.MMGridPageVoBean;
 import com.bskms.service.NoticeService;
@@ -85,6 +85,13 @@ public class NoticeServiceImpl implements NoticeService{
 			logger.error("删除用户出现异常", e);
 			TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
 		}
+	}
+
+	@Override
+	public List<Notice> getAllNotice() {
+		NoticeExample example = new NoticeExample();
+		example.createCriteria().andTitleIsNotNull();
+		return noticeMapper.selectByExample(example);
 	}
 
 }

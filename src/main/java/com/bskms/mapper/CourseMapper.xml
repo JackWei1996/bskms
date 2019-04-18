@@ -272,4 +272,12 @@
       class_id = #{classId,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  
+   <select id="getNowCourse"  resultMap="BaseResultMap">
+   	SELECT c.*
+	FROM course c
+	WHERE c.class_id = #{classId,jdbcType=INTEGER}
+	AND c.start &lt;= #{s,jdbcType=VARCHAR}
+	AND c.end &gt;= #{d,jdbcType=VARCHAR}
+  </select>
 </mapper>

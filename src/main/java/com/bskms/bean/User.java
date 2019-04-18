@@ -28,8 +28,19 @@ public class User {
     private String userIdcard;
 
     private Date accountCreateTime;
+    
+    private String csrq;
+    
 
-    public String getUserId() {
+    public String getCsrq() {
+		return csrq;
+	}
+
+	public void setCsrq(String csrq) {
+		this.csrq = csrq;
+	}
+
+	public String getUserId() {
         return userId;
     }
 

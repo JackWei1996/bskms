@@ -33,4 +33,6 @@ public interface ChildrenMapper {
 	List<Children> getAllStudentByLimit(Children stuParameter);
 
 	int countAllStudentByLimit(Children stuParameter);
+
+	List<Children> getChildrens(@Param("uId") String userId);
 }

@@ -271,4 +271,11 @@ where s.kqr_type = u.user_state
 				and sign_in &lt; #{endTime,jdbcType=TIMESTAMP}
 	</if>
   </select>
+  
+  <select id="getSign"  resultMap="BaseResultMap">
+	SELECT s.*
+	FROM sign s
+	WHERE kqr_id = #{cid,jdbcType=TIMESTAMP}
+	AND s.type = #{type,jdbcType=TIMESTAMP}
+  </select>
 </mapper>

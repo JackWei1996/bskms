@@ -282,4 +282,12 @@
 				and cla.name like concat('%',#{className},'%')
 	 </if>
   </select>
+  
+  <select id="getChildrens" parameterType="java.lang.String" resultMap="BaseResultMap">
+	SELECT c.*
+	FROM children c
+	LEFT JOIN user_children uc 
+	on c.id = uc.children_id
+	WHERE uc.user_id = #{uId,jdbcType=VARCHAR}
+  </select>
 </mapper>

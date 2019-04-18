@@ -31,4 +31,6 @@ public interface FootMapper {
 	List<Foot> getAllFootByLimit(Foot foot);
 
 	int countAllFootByLimit(Foot foot);
+	
+	List<Foot> getNowFoot(@Param("s") String s, @Param("e") String e);
 }
