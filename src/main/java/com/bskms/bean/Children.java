@@ -20,8 +20,54 @@ public class Children extends BaseBean{
     private Date entrance;
     
     private String className;
+    
+    private String userId;
+    private Integer childrenId;
+    private Integer isFaMa;
+    private Integer isJinji;
+    private Integer ucId;
 
-    public String getClassName() {
+    public Integer getUcId() {
+		return ucId;
+	}
+
+	public void setUcId(Integer ucId) {
+		this.ucId = ucId;
+	}
+
+	public String getUserId() {
+		return userId;
+	}
+
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+
+	public Integer getChildrenId() {
+		return childrenId;
+	}
+
+	public void setChildrenId(Integer childrenId) {
+		this.childrenId = childrenId;
+	}
+
+	public Integer getIsFaMa() {
+		return isFaMa;
+	}
+
+	public void setIsFaMa(Integer isFaMa) {
+		this.isFaMa = isFaMa;
+	}
+
+	public Integer getIsJinji() {
+		return isJinji;
+	}
+
+	public void setIsJinji(Integer isJinji) {
+		this.isJinji = isJinji;
+	}
+
+	public String getClassName() {
 		return className;
 	}
 

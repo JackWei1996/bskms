@@ -16,6 +16,7 @@ import com.bskms.bean.Notice;
 import com.bskms.bean.Sign;
 import com.bskms.mapper.SignMapper;
 import com.bskms.model.MMGridPageVoBean;
+import com.bskms.model.TongJi;
 import com.bskms.service.SignService;
 
 /**
@@ -84,5 +85,36 @@ public class SignServiceImpl implements SignService{
 			logger.error("删除用户出现异常", e);
 			TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
 		}
+	}
+
+	@Override
+	public Object getAllChildSignByLimit(Sign signParameter) {
+		int size = 0;
+
+		Integer begin = (signParameter.getPage() - 1) * signParameter.getLimit();
+		signParameter.setPage(begin);
+
+		List<Sign> rows = new ArrayList<>();
+		try {
+			rows = signMapper.getAllChildSignByLimit(signParameter);
+			size = signMapper.countAllChildSignByLimit(signParameter);
+		} catch (Exception e) {
+			logger.error("根据查询班级 异常", e);
+		}
+		MMGridPageVoBean<Sign> vo = new MMGridPageVoBean<>();
+		vo.setTotal(size);
+		vo.setRows(rows);
+
+		return vo;
+	}
+
+	@Override
+	public List<TongJi> getAllTeacherCount() {
+		return signMapper.getAllTeacherCount();
+	}
+
+	@Override
+	public List<TongJi> getAllChildCount() {
+		return signMapper.getAllChildCount();
 	}
 }

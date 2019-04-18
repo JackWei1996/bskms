@@ -208,4 +208,13 @@
       is_jinji = #{isJinji,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <select id="selectAllJiazhang" parameterType="com.bskms.bean.UserChildren" resultMap="BaseResultMap">
+  select * from user_children
+  </select>
+   <select id="selectById" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+ select * from user_children c
+left join user u on u.user_id=c.user_id
+left join children  chi on c.children_id=chi.id
+where u.user_state=2 and id = #{id,jdbcType=INTEGER}
+  </select>
 </mapper>

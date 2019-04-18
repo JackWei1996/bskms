@@ -469,4 +469,9 @@
 	<select id="selectAllUser" parameterType="com.bskms.model.UserParameter" resultMap="BaseResultMap">
 	 select * from user
 	</select>
+	<select id="selectAllJiazhang" parameterType="com.bskms.model.UserParameter" resultMap="BaseResultMap">
+		select * 
+		from user u
+		where u.user_state=2
+	</select>
 </mapper>

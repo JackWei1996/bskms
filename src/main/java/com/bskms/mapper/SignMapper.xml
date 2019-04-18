@@ -9,9 +9,11 @@
     <result column="type" jdbcType="INTEGER" property="type" />
     <result column="kqr_type" jdbcType="INTEGER" property="kqrType" />
     <result column="sign_in" jdbcType="TIMESTAMP" property="signIn" />
-    <result column="userName" jdbcType="VARCHAR" property="userName" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
     <result column="startTime" jdbcType="TIMESTAMP" property="startTime" />
     <result column="endTime" jdbcType="TIMESTAMP" property="endTime" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="className" jdbcType="VARCHAR" property="className" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -244,7 +246,7 @@
     where id = #{id,jdbcType=INTEGER}
   </update>
   
-  <select id="getAllSignByLimit" parameterType="com.bskms.bean.Notice" resultMap="BaseResultMap">
+  <select id="getAllSignByLimit" parameterType="com.bskms.bean.Sign" resultMap="BaseResultMap">
   select s.*,u.user_name from sign s
 left join user u on s.kqr_id=u.user_id
 where s.kqr_type = u.user_state
@@ -259,7 +261,7 @@ where s.kqr_type = u.user_state
 			limit #{page}, #{limit}
 	</if>
   </select>
-  <select id="countAllSignByLimit" parameterType="com.bskms.bean.Notice" resultType="int">
+  <select id="countAllSignByLimit" parameterType="com.bskms.bean.Sign" resultType="int">
     select count(*) from sign s
 left join user u on s.kqr_id=u.user_id
 where s.kqr_type = u.user_state
@@ -270,5 +272,57 @@ where s.kqr_type = u.user_state
 	<if test="endTime!=null and endTime!=''">
 				and sign_in &lt; #{endTime,jdbcType=TIMESTAMP}
 	</if>
+  </select>
+  
+   <select id="getAllChildSignByLimit" parameterType="com.bskms.bean.Sign" resultMap="BaseResultMap">
+select s.*,c.name,cla.name className from sign s
+left join children c on s.kqr_id=c.id 
+left join classes cla on cla.id=c.class_id
+where s.kqr_type=2
+
+     <if test="startTime!=null and startTime!=''">
+				and sign_in &gt; #{startTime,jdbcType=TIMESTAMP}
+	</if>
+	<if test="endTime!=null and endTime!=''">
+				and sign_in &lt; #{endTime,jdbcType=TIMESTAMP}
+	</if>
+    <if test="limit!=null">
+			limit #{page}, #{limit}
+	</if>
+  </select>
+  <select id="countAllChildSignByLimit" parameterType="com.bskms.bean.Sign" resultType="int">
+select count(*) from sign s
+left join children c on s.kqr_id=c.id 
+left join classes cla on cla.id=c.class_id
+where s.kqr_type=2
+
+     <if test="startTime!=null and startTime!=''">
+				and sign_in &gt; #{startTime,jdbcType=TIMESTAMP}
+	</if>
+	<if test="endTime!=null and endTime!=''">
+				and sign_in &lt; #{endTime,jdbcType=TIMESTAMP}
+	</if>
+  </select>
+  
+  <select id="getAllTeacherCount" parameterType="com.bskms.bean.Sign" resultType="com.bskms.model.TongJi">
+SELECT u.user_name, 
+COUNT(if(s.state = 1, true, null)) AS zhengChang,
+COUNT(if(s.state = 2, true, null)) AS tiQian,
+COUNT(if(s.state = 3, true, null)) AS chiDao
+FROM sign s
+left join user u on s.kqr_id=u.user_id
+WHERE s.kqr_type = 1
+GROUP BY s.kqr_id
+  </select>
+  
+  <select id="getAllChildCount" parameterType="com.bskms.bean.Sign" resultType="com.bskms.model.TongJi">
+SELECT c.name,
+COUNT(if(s.state = 1, true, null)) AS zhengChang,
+COUNT(if(s.state = 2, true, null)) AS tiQian,
+COUNT(if(s.state = 3, true, null)) AS chiDao
+FROM sign s
+left join children c on s.kqr_id=c.id
+WHERE s.kqr_type = 2
+GROUP BY s.kqr_id
   </select>
 </mapper>

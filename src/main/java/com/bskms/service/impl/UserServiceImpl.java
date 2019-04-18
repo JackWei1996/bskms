@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
 import com.bskms.bean.User;
+import com.bskms.bean.UserChildren;
 import com.bskms.bean.UserExample;
 import com.bskms.bean.UserRole;
 import com.bskms.bean.UserRoleExample;
@@ -482,4 +483,12 @@ public class UserServiceImpl implements UserService {
 		
 		return userMapper.selectAllUser();
 	}
+
+	@Override
+	public List<User> selectAllJiazhang() {
+		
+		return userMapper.selectAllJiazhang();
+	}
+
+
 }

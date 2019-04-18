@@ -2,6 +2,8 @@ package com.bskms.mapper;
 
 import com.bskms.bean.Sign;
 import com.bskms.bean.SignExample;
+import com.bskms.model.TongJi;
+
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
@@ -31,4 +33,12 @@ public interface SignMapper {
 	List<Sign> getAllSignByLimit(Sign signParameter);
 
 	int countAllSignByLimit(Sign signParameter);
+
+	List<Sign> getAllChildSignByLimit(Sign signParameter);
+
+	int countAllChildSignByLimit(Sign signParameter);
+
+	List<TongJi> getAllTeacherCount();
+
+	List<TongJi> getAllChildCount();
 }

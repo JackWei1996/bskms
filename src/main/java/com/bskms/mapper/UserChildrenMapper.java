@@ -27,4 +27,10 @@ public interface UserChildrenMapper {
     int updateByPrimaryKeySelective(UserChildren record);
 
     int updateByPrimaryKey(UserChildren record);
+
+	List<UserChildren> selectAllJiazhang();
+
+	UserChildren selectById(Integer id);
+	
+	UserChildren selectByUCId(Integer id);
 }

@@ -58,4 +58,25 @@ function qianDao(){
     	});
 	}
 
+function qianTui(){
+    var param = {"type":1};
+	$.ajax({
+		type:"POST",
+		async:true,  //默认true,异步
+		data:param,
+		url:"/ls/addQianTui",
+		success:function(data){
+			if(data == "SUCCESS"){
+				layer.alert('签退成功！', {icon: 1}, function(indexOk){
+					layer.close(indexOk);
+   				});
+			}else{
+				layer.alert('签退失败！', {icon: 2}, function(indexNo){
+   					layer.close(indexNo);
+   				});
+			}
+	    }
+	});
+}
+
 </script>
