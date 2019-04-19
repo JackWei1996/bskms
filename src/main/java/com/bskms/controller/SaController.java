@@ -550,6 +550,8 @@ public class SaController {
 			Classes classes = classService.selectByPrimaryKey(id);
 			model.addAttribute("manageClasses", classes);
 		}
+		List<User> user = userService.selectAllTea();
+		model.addAttribute("user", user);
 		return "sa/classesAdd";
 	}
 	

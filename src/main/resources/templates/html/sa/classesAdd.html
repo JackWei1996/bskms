@@ -60,10 +60,16 @@ function getTime(val){
 }
 	
 var manageClasses = [[${manageClasses}]];
+var user = [[${user}]];
 
 $(function(){
 	$(".re_password").hide();
-	
+
+	if(user){
+		 for(var i=0;i<user.length;i++){
+			$("#bzrId").append("<option value='"+user[i].userId+"'>"+user[i].userName+"</option>");
+		 }
+	}
    	if(manageClasses){
    		//修改
    		$(".top_page_name").text("修改班级");
@@ -170,8 +176,11 @@ function save(){
 					<span class="text_ad_0">班主任：</span>
 				</td>
 				<td>
-				    <input id="bzrId" type="text" name="bzrId" class="input_0"/>
-					<span class="validation_span"></span>
+					 <div class="layui-input-inline">
+					        <select id="bzrId" name="bzrId" lay-filter="bzrId" lay-verify="required" lay-search="" class="layui-form">
+					         	<option value="" selected="selected">---请选择班主任---</option>
+					        </select>
+		      		</div>
 				</td>
 			</tr>
 			<tr>

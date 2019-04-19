@@ -67,8 +67,14 @@ $(function(){
 					   return "女";
 				   }
 			   }},
-			   {title: '部门', name: 'dept', width:100},
-			   {title: '职位', name: 'position', width:100},
+			 
+			   {title: '类型', name: 'userState', width:50, renderer:function(val, item, rowIndex){
+				   if(val == 1){
+					   return "<span style='color:red'>老师</span>";
+				   }else if(val == 2){
+					   return "<span style='color:blue'>家长</span>";
+				   }
+			   }},
 			   {title: '操作', name: 'roleId', width:40, align:'center', renderer:function(val, item, rowIndex){
 				   
 				   var btn = "<a href='#' class='select' onclick='selectUser(this)' key='"+item.userId+"' val='"+item.userName+"' >选择</a>";
