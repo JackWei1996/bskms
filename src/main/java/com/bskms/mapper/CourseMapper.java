@@ -1,5 +1,6 @@
 package com.bskms.mapper;
 
+import com.bskms.bean.ClaTea;
 import com.bskms.bean.Course;
 import com.bskms.bean.CourseExample;
 import java.util.List;
@@ -29,4 +30,10 @@ public interface CourseMapper {
     int updateByPrimaryKey(Course record);
 
 	Course getNowCourse(@Param("classId")Integer classId, @Param("s")String s, @Param("d")String d);
+
+	List<Course> getAllCourse();
+
+	List<ClaTea> getAllCourseByLimit(Course course);
+
+	int getAllCourseByLimitCout(Course course);
 }

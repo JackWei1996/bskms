@@ -2,7 +2,7 @@ package com.bskms.bean;
 
 import java.util.Date;
 
-public class Course {
+public class Course extends BaseBean{
     private Integer id;
 
     private String name;
@@ -20,6 +20,16 @@ public class Course {
     private Date createTime;
 
     private Integer classId;
+    
+    private String cname;
+    
+    public String getCname() {
+		return cname;
+	}
+
+	public void setCname(String cname) {
+		this.cname = cname;
+	}
 
     public Integer getId() {
         return id;

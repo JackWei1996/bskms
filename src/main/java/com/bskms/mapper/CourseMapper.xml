@@ -11,6 +11,7 @@
     <result column="am_pm" jdbcType="INTEGER" property="amPm" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="class_id" jdbcType="INTEGER" property="classId" />
+    <result column="cname" jdbcType="VARCHAR" property="cname" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -279,5 +280,37 @@
 	WHERE c.class_id = #{classId,jdbcType=INTEGER}
 	AND c.start &lt;= #{s,jdbcType=VARCHAR}
 	AND c.end &gt;= #{d,jdbcType=VARCHAR}
+  </select>
+  <select id="getAllCourse"  resultMap="BaseResultMap">
+    SELECT c.*, cl.name cname
+	FROM course c
+	LEFT JOIN classes cl
+	ON cl.id = c.class_id
+  </select>
+  
+  <select id="getAllCourseByLimit" parameterType="com.bskms.bean.Course" resultMap="BaseResultMap">
+   	SELECT c.*,
+	cl.NAME as cname
+	FROM course as c
+	LEFT JOIN classes as cl
+	ON cl.id = c.class_id
+	where 1=1
+   <if test="cname!=null and cname!=''">
+		and cl.name like concat('%',#{cname},'%')
+	</if>
+    <if test="limit!=null">
+			limit #{page}, #{limit}
+	</if>
+  </select>
+  
+  <select id="getAllCourseByLimitCout" parameterType="com.bskms.bean.Course" resultType="int">
+    SELECT count(0)
+	FROM course c
+	LEFT JOIN classes cl
+	ON cl.id = c.class_id
+	 where 1=1
+  	<if test="cname!=null and cname!=''">
+		and cl.name like concat('%',#{cname},'%')
+	</if>
   </select>
 </mapper>

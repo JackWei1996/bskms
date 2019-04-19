@@ -18,8 +18,18 @@ public class Classes extends BaseBean{
     private Date createTime;
     
     private String userName;
+    
+    private String cname;
+    
+    public String getCname() {
+		return cname;
+	}
 
-    public String getUserName() {
+	public void setCname(String cname) {
+		this.cname = cname;
+	}
+
+	public String getUserName() {
 		return userName;
 	}
 
