@@ -107,7 +107,7 @@ public class TeacherController {
 			
 			List<User> user=userService.selectAllJiazhang();
 			model.addAttribute("user", user);
-			return "ls/StuPageAdd";
+			return "ls/stuPageAdd";
 		}
 		
 		/**

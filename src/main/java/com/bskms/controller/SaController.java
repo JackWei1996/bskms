@@ -755,7 +755,7 @@ public class SaController {
 			
 			List<User> teacher=userService.selectAllTea();
 			model.addAttribute("tea", teacher);
-			return "sa/PayAdd";
+			return "sa/payAdd";
 		}
 		
 		/**
@@ -853,7 +853,7 @@ public class SaController {
 					model.addAttribute("manageMaterial", material);
 				}
 				
-				return "sa/MaterialAdd";
+				return "sa/materialAdd";
 			}
 			
 			/**
@@ -951,7 +951,7 @@ public class SaController {
 					model.addAttribute("manageFoot", foot);
 				}
 				
-				return "sa/FootAdd";
+				return "sa/footAdd";
 			}
 			
 			/**
