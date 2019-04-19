@@ -396,7 +396,6 @@ public class TeacherController {
 			/**
 			 * Method name: getAllSignByLimit <BR>
 			 * Description: 根据条件获取所有教师 <BR>
-			 * 
 			 * @param userParameter
 			 * @return Object<BR>
 			 */
