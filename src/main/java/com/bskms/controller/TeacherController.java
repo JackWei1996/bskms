@@ -19,13 +19,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.bskms.bean.Children;
+import com.bskms.bean.ClaTea;
 import com.bskms.bean.Classes;
+import com.bskms.bean.Course;
 import com.bskms.bean.Notice;
 import com.bskms.bean.Sign;
 import com.bskms.bean.User;
 import com.bskms.bean.UserChildren;
 import com.bskms.model.TongJi;
 import com.bskms.service.ClassService;
+import com.bskms.service.CourseService;
 import com.bskms.service.NoticeService;
 import com.bskms.service.SignService;
 import com.bskms.service.StudentService;
@@ -53,6 +56,8 @@ public class TeacherController {
 	private UserService userService;
 	@Autowired
 	private UserChildrenService userChildrenService;
+	@Autowired
+	private CourseService courseService;
 	
 	@RequestMapping("/stu")
 	public String stu(Model model) {
@@ -447,5 +452,49 @@ public class TeacherController {
 				model.addAttribute("cd", cd);
 				
 				return "ls/tongJiXueSheng";
+			}
+			
+			@RequestMapping(value = "/course")
+			public String course(Model model) {
+				return "ls/course";
+			}
+			
+			//课程
+			@RequestMapping(value = "/courseAdd")
+			public String courseAdd(Model model) {
+				List<User> users = userService.selectAllTea();
+				model.addAttribute("users", users);
+				
+				List<Classes> clas = classService.selectAllClasses();
+				model.addAttribute("cla", clas);
+				return "ls/courseAdd";
+			}
+			
+			@RequestMapping("/getAllCourseByLimit")
+			@ResponseBody
+			public Object getAllCourseByLimit(Course course) {
+				return courseService.getAllCourseByLimit(course);
+			}
+			@ResponseBody
+			@RequestMapping("/addCourse")
+			public String addCourse(Course course) {
+				course.setCreateTime(new Date());
+			    try {					
+			    	courseService.addCourse(course);
+			    	return "SUCCESS";
+				} catch (Exception e) {
+					return "ERR";
+				}
+			}
+			
+			@ResponseBody
+			@RequestMapping("/delCourse")
+			public String delCourse(Integer id) {
+			    try {					
+			    	courseService.delCourse(id);
+			    	return "SUCCESS";
+				} catch (Exception e) {
+					return "ERR";
+				}
 			}
 }

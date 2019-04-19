@@ -69,13 +69,12 @@ $(function(){
    		$("#userId").val(manageUser.userId);
    		$("#userName").val(manageUser.userName);
    		$("#userTel").val(manageUser.userTel);
-   		$("#userTel").val(manageUser.userTel);
-   		$("#dept").val(manageUser.dept);
    		$("#position").val(manageUser.position);
    		$("#userBirthday").val(getTime(manageUser.userBirthday));
    		$(":radio[name='userSex'][value='"+manageUser.userSex+"']").attr("checked", "checked");
    		$("#userMail").val(manageUser.userMail);
    		$("#userAddress").val(manageUser.userAddress);
+   		$("#userIdcard").val(manageUser.userIdcard);
    	}
 	//验证数字长度
 	$.validator.addMethod(
@@ -141,6 +140,10 @@ $(function(){
 	        userAddress: {
 	        	//required:true,
 	        	maxlength:100
+	        },
+	        userIdcard: {
+	        	required:true,
+	        	 rangelength:[18, 18],
 	        }
 	    },      
 	    /**//* 设置错误信息 */    
@@ -160,6 +163,11 @@ $(function(){
 	        },
 	        userAddress: {
 	        	maxlength:"最多100个字符"
+	        }
+	        ,
+	        userIdcard: {
+	        	required:"身份证不可为空",
+	        	rangelength:"身份证不正确",
 	        }
 	    },      
 	    /**//* 设置验证触发事件 */
@@ -205,6 +213,7 @@ function save(){
 	param.userSex = $(":radio[name='userSex']:checked").val();
 	param.position = $.trim($("#position").val());
 	param.dept = $.trim($("#dept").val());
+	param.userIdcard = $("#userIdcard").val();
 	
 	var urlStr = "/user/updateUser";
 	if(manageUser){
@@ -285,12 +294,13 @@ function save(){
 					<span class="validation_span"></span>
 				</td>
 			</tr>
-			<tr>
+			<tr style="">
 				<td align="right" >
-					<span class="text_ad_0">所属部门：</span>
+				    <span class="need_0">*</span>
+					<span class="text_ad_0">身份证号：</span>
 				</td>
 				<td>
-					<input id="dept" type="text" name="dept" class="input_0" value=""/>
+					<input id="userIdcard" type="text" name="userIdcard" class="input_0" value="" />
 					<span class="validation_span"></span>
 				</td>
 			</tr>
