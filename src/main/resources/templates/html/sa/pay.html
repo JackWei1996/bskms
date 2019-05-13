@@ -86,13 +86,20 @@ $(function(){
         },
         cols: [{title: 'ID', name: 'id', width:60, hidden:true},
 			   {title: '教师', name: 'userName', width:50},
-			   {title: '基本工资', name: 'base', width:50},
-			   {title: '加班工资', name: 'overtime', width:50},
-			   {title: '交通补', name: 'traffic', width:50},
-			   {title: '餐补', name: 'meal', width:50},
-			   {title: '节假日补贴', name: 'vacation', width:50},
-			   {title: '绩效', name: 'bonus', width:50},
-			   {title: '其他', name: 'other', width:50},
+			   {title: '基本工资', name: 'base', width:30},
+			   {title: '加班工资', name: 'overtime', width:30},
+			   {title: '交通补', name: 'traffic', width:30},
+			   {title: '餐补', name: 'meal', width:30},
+			   {title: '节假日补贴', name: 'vacation', width:30},
+			   {title: '绩效', name: 'bonus', width:30},
+			   {title: '其他', name: 'other', width:30},
+			   {title: '发放日期', name: 'paymentTime', width:30, renderer:function(val, item, rowIndex){
+				   console.log(val);
+				   if(val){
+					   return (""+val).split(" ")[0];
+				   }
+				   return "";
+			   }},
 			   {title: '操作', name: 'id', width:80, renderer:function(val, item, rowIndex){
 				   var buttonStr = '<span class="layui-btn layui-btn-sm" onclick="editRowOne('+"\'"+item.id+"\'"+')" >修改</span>' +
 				   				   '<span class=" layui-btn layui-btn-danger layui-btn-sm" onclick="deleteRowOne('+"\'"+item.id+"\'"+')" >删除</span>';

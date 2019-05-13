@@ -268,7 +268,7 @@
 				and stu.name like concat('%',#{name},'%')
 	 </if>
 	  <if test="className!=null and className!=''">
-				and cla.name like concat('%',#{className},'%')
+				and cla.id like concat('%',#{className},'%')
 	 </if>
 	   <if test="limit!=null">
 			limit #{page}, #{limit}
@@ -283,7 +283,7 @@
 				and stu.name like concat('%',#{name},'%')
 	 </if>
 	  <if test="className!=null and className!=''">
-				and cla.name like concat('%',#{className},'%')
+				and cla.id like concat('%',#{className},'%')
 	 </if>
   </select>
   

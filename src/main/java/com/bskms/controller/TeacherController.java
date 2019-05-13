@@ -61,7 +61,8 @@ public class TeacherController {
 	
 	@RequestMapping("/stu")
 	public String stu(Model model) {
-		
+		List<Classes> classes=classService.selectAllClasses();
+		model.addAttribute("cla", classes);
 		return "ls/stuPage";
 	}
 	//学生管理
@@ -73,7 +74,9 @@ public class TeacherController {
 		 * @return String<BR>
 		 */
 		@RequestMapping(value = "/stuMG")
-		public String teaMG() {
+		public String teaMG(Model model) {
+			List<Classes> classes=classService.selectAllClasses();
+			model.addAttribute("cla", classes);
 			return "ls/student";
 		}
 		

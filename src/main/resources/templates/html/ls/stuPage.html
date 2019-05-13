@@ -24,7 +24,7 @@
 
 </head>
 <body>
-<div  lay-allowclose="true" style="margin-left:15px; width: 98%">
+<div lay-allowclose="true" style="margin-left:15px; width: 98%">
 <div class="first_div" style="border:none;">
 	<table class="param_table" style="margin-left:10px;" >
 		<tr>
@@ -33,11 +33,15 @@
 				<input type="text" id="name" name="name" class="input_0" />
 			</td>
 			<td style="width:150px;">
-				<span>班级：</span>
-				<input type="text" id="className" name="className" class="input_0" />
-			</td>
-			
-		
+					
+					<span>班级：</span>
+				
+					 <div class="layui-input-inline">
+					        <select id="className" name="className" lay-filter="className" lay-verify="required" lay-search="" class="input_0">
+					         	<option value="" selected="selected">---请选择班级---</option>
+					        </select>
+		      		</div>
+				</td>
 			<td style="">
 			<div class="layui-btn-group">
 			  <button class="layui-btn" onclick="search()">查询</button>
@@ -55,8 +59,15 @@
 </body>
 </html>
 
-<script type="text/javascript">
+<script type="text/javascript"  th:inline="javascript">
+var cla = [[${cla}]];
 $(function(){	
+	if(cla){
+		console.log(cla);
+		 for(var i=0;i<cla.length;i++){
+			$("#className").append("<option value='"+cla[i].id+"'>"+cla[i].name+"</option>");
+		 }
+	}
 	//表格
 	$('#exampleTableUser').mmGrid({
     	root:'rows',// 和后台数据保存列一致,对应MMGridPageVoBean rows
