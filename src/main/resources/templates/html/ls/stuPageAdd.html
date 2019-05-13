@@ -85,6 +85,7 @@ $(function(){
 		 }
 	}
    	if(manageStu){
+   		console.log(manageStu);
    		//修改
    		$(".top_page_name").text("修改学生");
    		
@@ -95,6 +96,8 @@ $(function(){
    		$("#birthday").val(manageStu.birthday.split("T")[0]);
    		$("#hobby").val(manageStu.hobby);
    		$("#food").val(manageStu.food);
+   		$("#id").val(manageStu.id);
+   		console.log(manageStu.id);
    		$("#entrance").val(manageStu.entrance.split("T")[0]);
    		if(us){
 	   		$("#userId option[value='"+us.userId+"']").attr("selected","selected");
@@ -157,6 +160,7 @@ function save(){
 		//修改
 		if(us){			
 			param.ucId = us.id;
+			param.id = manageStu.id;
 		}
 		urlStr = "/ls/updateStudent";
 	}
@@ -197,6 +201,7 @@ function save(){
 	<div id="adListDiv" align="left" >
 	<form>
 		<table class="form_table" style="border-collapse: collapse;margin-left:20px;margin-top:10px;">
+		<input id="id" type="text" name="id" class="input_0" hidden="true" />
 		    <tr>
 				<td align="right" >
 					<span class="need_0">*</span>
