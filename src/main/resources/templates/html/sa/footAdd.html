@@ -104,6 +104,9 @@ function save(){
 	param.breakfast = $.trim($("#breakfast").val());
 	param.lunch = $.trim($("#lunch").val());
 	param.dinner = $.trim($("#dinner").val());
+	param.breakfastDesc = $.trim($("#breakfastDesc").val());
+	param.lunchDesc = $.trim($("#lunchDesc").val());
+	param.dinnerDesc = $.trim($("#dinnerDesc").val());
 	var urlStr = "/sa/addFoot";
 	
 	if(manageFoot){
@@ -112,6 +115,10 @@ function save(){
 		urlStr = "/sa/updateFoot";
 		
 	}
+	
+	if(param.breakfast=="" || param.lunch==""|| param.dinner==""|| param.breakfastDesc==""|| param.lunchDesc==""|| param.dinnerDesc==""){
+		layer.confirm('请填写必填项!', {icon: 2, title:'提示'});
+	}else{
 	
 	layer.confirm('确认保存吗？', {icon: 3, title:'提示'}, function(index){
 		$.ajax({
@@ -140,6 +147,7 @@ function save(){
     	    }
     	});
 	});
+	}
 }
 
 </script>
@@ -165,6 +173,17 @@ function save(){
 			<tr>
 				<td align="right" >
 					<span class="need_0">*</span>
+					<span class="text_ad_0">早餐详细信息：</span>
+				</td>
+				<td>
+					<textarea id="breakfastDesc" name="breakfastDesc" style="width: 200px;" rows="3"></textarea>
+					<span class="validation_span"></span>
+				</td>
+			</tr>
+			
+			<tr>
+				<td align="right" >
+					<span class="need_0">*</span>
 					<span class="text_ad_0">午餐：</span>
 				</td>
 				<td>
@@ -176,10 +195,32 @@ function save(){
 			<tr>
 				<td align="right" >
 					<span class="need_0">*</span>
+					<span class="text_ad_0">午餐详细信息：</span>
+				</td>
+				<td>
+					<textarea id="lunchDesc" name="lunchDesc" style="width: 200px;" rows="3"></textarea>
+					<span class="validation_span"></span>
+				</td>
+			</tr>
+			
+			<tr>
+				<td align="right" >
+					<span class="need_0">*</span>
 					<span class="text_ad_0">晚餐：</span>
 				</td>
 				<td>
 					<input id="dinner" type="text" name="dinner" class="input_0" />
+					<span class="validation_span"></span>
+				</td>
+			</tr>
+			
+			<tr>
+				<td align="right" >
+					<span class="need_0">*</span>
+					<span class="text_ad_0">晚餐详细信息：</span>
+				</td>
+				<td>
+					<textarea id="dinnerDesc" name="dinnerDesc" style="width: 200px;" rows="3"></textarea>
 					<span class="validation_span"></span>
 				</td>
 			</tr>

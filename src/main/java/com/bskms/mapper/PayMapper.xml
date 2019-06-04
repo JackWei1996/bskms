@@ -300,6 +300,12 @@
 	 <if test="minBase!=null and maxBase!=''">
 		and p.base &lt; #{maxBase,jdbcType=DOUBLE}
 	</if>
+	<if test="minDate!=null and minDate!=''">
+		and p.payment_time &gt;= #{minDate,jdbcType=DOUBLE}
+	</if>
+	<if test="maxDate!=null and maxDate!=''">
+		and p.payment_time &lt;= #{maxDate,jdbcType=DOUBLE}
+	</if>
     <if test="limit!=null">
 		limit #{page}, #{limit}
 	</if>
@@ -308,11 +314,17 @@
       select count(*) from pay p
    left join user u on p.name=u.user_id
    where u.user_state=1
-   <if test="minBase!=null and minBase!=''">
+    <if test="minBase!=null and minBase!=''">
 		and p.base &gt; #{minBase,jdbcType=DOUBLE}
 	</if>
-	 <if test="minBase!=null and maxBase!=''">
+	<if test="minBase!=null and maxBase!=''">
 		and p.base &lt; #{maxBase,jdbcType=DOUBLE}
+	</if>
+	<if test="minDate!=null and minDate!=''">
+		and p.payment_time &gt;= #{minDate,jdbcType=DOUBLE}
+	</if>
+	<if test="maxDate!=null and maxDate!=''">
+		and p.payment_time &lt;= #{maxDate,jdbcType=DOUBLE}
 	</if>
   </select>
 </mapper>

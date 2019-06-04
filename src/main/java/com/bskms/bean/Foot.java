@@ -17,7 +17,39 @@ public class Foot extends BaseBean{
     
     private String endTime;
     
-    public String getStartTime() {
+    private String breakfastDesc;
+
+    private String lunchDesc;
+
+    private String dinnerDesc;
+    
+    
+    
+    public String getBreakfastDesc() {
+		return breakfastDesc;
+	}
+
+	public void setBreakfastDesc(String breakfastDesc) {
+		this.breakfastDesc = breakfastDesc;
+	}
+
+	public String getLunchDesc() {
+		return lunchDesc;
+	}
+
+	public void setLunchDesc(String lunchDesc) {
+		this.lunchDesc = lunchDesc;
+	}
+
+	public String getDinnerDesc() {
+		return dinnerDesc;
+	}
+
+	public void setDinnerDesc(String dinnerDesc) {
+		this.dinnerDesc = dinnerDesc;
+	}
+
+	public String getStartTime() {
 		return startTime;
 	}
 

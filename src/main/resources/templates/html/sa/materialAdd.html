@@ -116,7 +116,9 @@ function save(){
 		urlStr = "/sa/updateMaterial";
 		
 	}
-	
+	if(param.name=="" || param.count==""|| param.price==""|| param.from==""){
+		layer.confirm('请填写必填项!', {icon: 2, title:'提示'});
+	}else{
 	layer.confirm('确认保存吗？', {icon: 3, title:'提示'}, function(index){
 		$.ajax({
     		type:"POST",
@@ -144,6 +146,7 @@ function save(){
     	    }
     	});
 	});
+	}
 }
 
 </script>

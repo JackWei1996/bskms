@@ -164,7 +164,11 @@ function save(){
 		}
 		urlStr = "/ls/updateStudent";
 	}
-	
+	if(param.name=="" || param.sex==""|| param.birthday==""|| param.entrance==""|| 
+			param.classId==""|| param.hobby==""|| param.food==""|| param.userId==""|| 
+			param.isFaMa==""|| param.isJinji==""){
+		layer.confirm('请填写必填项!', {icon: 2, title:'提示'});
+	}else{
 	layer.confirm('确认保存吗？', {icon: 3, title:'提示'}, function(index){
 		$.ajax({
     		type:"POST",
@@ -191,6 +195,7 @@ function save(){
     	    }
     	});
 	});
+	}
 }
 
 </script>

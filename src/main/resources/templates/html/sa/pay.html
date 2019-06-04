@@ -36,8 +36,11 @@
 				<span>最大基本工资：</span>
 				<input type="text" id="maxBase" name="maxBase" class="input_0" />
 			</td>
+			<td style="width:150px;">
+				<span>按年月查询：</span>
+		        <input type="text" class="layui-input" id="minDate" name="minDate" placeholder="yyyy-MM">
+			</td>
 			
-
 			<td style="">
 			<div class="layui-btn-group">
 			  <button class="layui-btn" onclick="search()">查询</button>
@@ -82,6 +85,7 @@ $(function(){
         	param.other = $.trim($("#other").val());
         	param.minBase = $.trim($("#minBase").val());
         	param.maxBase = $.trim($("#maxBase").val());
+        	param.minDate = $.trim($("#minDate").val());
         	return param;
         },
         cols: [{title: 'ID', name: 'id', width:60, hidden:true},
@@ -116,6 +120,16 @@ $(function(){
         	})
         ]
     });
+});
+
+layui.use('laydate', function(){
+	  var laydate = layui.laydate;
+	  
+	//常规用法
+	  laydate.render({
+	    elem: '#minDate'
+	    ,type: 'month'
+	  });
 });
 
 //查询

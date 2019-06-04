@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<title>增加用户</title>
+<title>增加课程</title>
 <link type="text/css" rel="stylesheet" th:href="@{/css/page.css}" />
 <script type="text/javascript" th:src="@{/js/jquery/jquery-3.3.1.js}" ></script>
 <!-- validation -->
@@ -149,6 +149,10 @@ function save(){
 	param.classId = $.trim($("#classId").val());
 	var urlStr = "/ls/addCourse";
 	
+	if(param.name=="" || param.teaName==""|| param.start==""|| param.end==""|| param.step==""|| param.amPm==""|| param.classId==""){
+		layer.confirm('请填写必填项!', {icon: 2, title:'提示'});
+	}else{
+	
 	layer.confirm('确认保存吗？', {icon: 3, title:'提示'}, function(index){
 		$.ajax({
     		type:"POST",
@@ -176,6 +180,7 @@ function save(){
     	    }
     	});
 	});
+	}
 }
 
 </script>

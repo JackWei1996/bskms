@@ -48,6 +48,11 @@ public class PayServiceImpl implements PayService{
 
 		Integer begin = (payParameter.getPage() - 1) * payParameter.getLimit();
 		payParameter.setPage(begin);
+		
+		if(payParameter.getMinDate()!=null && !payParameter.getMinDate().equals("")) {			
+			payParameter.setMaxDate(payParameter.getMinDate()+"-31");
+		}
+		
 
 		List<Pay> rows = new ArrayList<>();
 		try {

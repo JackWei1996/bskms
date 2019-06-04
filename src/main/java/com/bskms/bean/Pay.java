@@ -29,7 +29,27 @@ public class Pay extends BaseBean{
     
     private Double maxBase;
     
-    public Double getMinBase() {
+    private String minDate;
+    
+    private String maxDate;
+    
+	public String getMinDate() {
+		return minDate;
+	}
+
+	public void setMinDate(String minDate) {
+		this.minDate = minDate;
+	}
+
+	public String getMaxDate() {
+		return maxDate;
+	}
+
+	public void setMaxDate(String maxDate) {
+		this.maxDate = maxDate;
+	}
+
+	public Double getMinBase() {
 		return minBase;
 	}
 

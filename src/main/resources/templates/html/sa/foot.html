@@ -86,10 +86,15 @@ $(function(){
         },
         cols: [{title: 'ID', name: 'id', width:60, hidden:true},
 			   {title: '早餐', name: 'breakfast', width:50},
+			   {title: '早餐详细信息', name: 'breakfastDesc', width:80},
 			   {title: '午餐', name: 'lunch', width:50},
+			   {title: '午餐详细信息', name: 'lunchDesc', width:80},
 			   {title: '晚餐', name: 'dinner', width:50},
-			   {title: '创建时间', name: 'createTime', width:50},
-			   {title: '操作', name: 'id', width:80, renderer:function(val, item, rowIndex){
+			   {title: '晚餐详细信息', name: 'dinnerDesc', width:80},
+			   {title: '创建日期', name: 'createTime', width:50, renderer:function(val, item, rowIndex){
+				   return val.split(" ")[0];
+			   }},
+			   {title: '操作', name: 'id', width:30, renderer:function(val, item, rowIndex){
 				   var buttonStr = '<span class="layui-btn layui-btn-sm" onclick="editRowOne('+"\'"+item.id+"\'"+')" >修改</span>' +
 				   				   '<span class=" layui-btn layui-btn-danger layui-btn-sm" onclick="deleteRowOne('+"\'"+item.id+"\'"+')" >删除</span>';
 				   return "<div class='span_btus' >" + buttonStr + "</div>";
@@ -145,7 +150,7 @@ function deleteRowOne(id){
 function addRow(){
 	layer.open({
 	    type: 2,
-	    title: '增加班级',
+	    title: '增加菜谱',
 	    area: ['55%', '90%'],//宽高
 	    content: '/sa/addFootPage' //iframe的url
 	});
@@ -154,7 +159,7 @@ function addRow(){
 function editRowOne(id){
 	layer.open({
 	    type: 2,
-	    title: '修改班级',
+	    title: '修改菜谱',
 	    area: ['70%', '90%'],
 	    content: '/sa/addFootPage?id='+id //iframe的url
 	});

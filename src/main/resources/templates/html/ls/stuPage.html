@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<title>教师管理</title>
+<title>学生管理</title>
 <link type="text/css" rel="stylesheet" th:href="@{/css/page.css}"/>
 <script type="text/javascript" th:src="@{/js/jquery/jquery-3.3.1.js}"></script>
 <!-- mmGrid -->
@@ -167,7 +167,7 @@ function deleteRowOne(id){
 function addRow(){
 	layer.open({
 	    type: 2,
-	    title: '增加用户',
+	    title: '增加学生',
 	    area: ['55%', '90%'],//宽高
 	    content: '/ls/addStuPage' //iframe的url
 	});
@@ -176,7 +176,7 @@ function addRow(){
 function editRowOne(id){
 	layer.open({
 	    type: 2,
-	    title: '修改用户',
+	    title: '修改学生',
 	    area: ['70%', '90%'],
 	    content: '/ls/addStuPage?id='+id //iframe的url
 	});

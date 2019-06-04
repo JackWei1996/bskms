@@ -130,33 +130,39 @@ function save(){
 		
 	}
 	
-	layer.confirm('确认保存吗？', {icon: 3, title:'提示'}, function(index){
-		$.ajax({
-    		type:"POST",
-    		async:true,  //默认true,异步
-    		data:param,
-    		url:urlStr,
-    		success:function(data){
-    			console.log(data);
-    			if(data == "SUCCESS"){
-    				layer.alert('保存成功！', {icon: 1}, function(indexOk){
-       					parent.search();
-       	    			parent.$("#add_iframe iframe").attr("src", "");
-       			    	parent.$("div").first().show();
-       			    	parent.$("#add_iframe").hide();
-       			    	parent.layer.closeAll();
-       				});
-    			}else if(data == "LGINOUT"){
-    				//重新登录
-    				parent.window.location.href = "/logout";    				
-    			}else{
-    				layer.alert('保存失败！', {icon: 2}, function(indexNo){
-    					parent.layer.closeAll();
-       				});
-    			}
-    	    }
-    	});
-	});
+	if(param.classId=="" || param.tecId=="" || param.subject==""){
+		layer.confirm('请填写必填项!', {icon: 2, title:'提示'});
+	}else{
+		layer.confirm('确认保存吗？', {icon: 3, title:'提示'}, function(index){
+			$.ajax({
+	    		type:"POST",
+	    		async:true,  //默认true,异步
+	    		data:param,
+	    		url:urlStr,
+	    		success:function(data){
+	    			console.log(data);
+	    			if(data == "SUCCESS"){
+	    				layer.alert('保存成功！', {icon: 1}, function(indexOk){
+	       					parent.search();
+	       	    			parent.$("#add_iframe iframe").attr("src", "");
+	       			    	parent.$("div").first().show();
+	       			    	parent.$("#add_iframe").hide();
+	       			    	parent.layer.closeAll();
+	       				});
+	    			}else if(data == "LGINOUT"){
+	    				//重新登录
+	    				parent.window.location.href = "/logout";    				
+	    			}else{
+	    				layer.alert('保存失败！', {icon: 2}, function(indexNo){
+	    					parent.layer.closeAll();
+	       				});
+	    			}
+	    	    }
+	    	});
+		});
+	}
+	
+	
 }
 
 </script>

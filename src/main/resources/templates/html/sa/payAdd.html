@@ -130,6 +130,9 @@ function save(){
 		urlStr = "/sa/updatePay";
 		
 	}
+	if(param.name=="" || param.base==""){
+		layer.confirm('请填写必填项!', {icon: 2, title:'提示'});
+	}else{
 	
 	layer.confirm('确认保存吗？', {icon: 3, title:'提示'}, function(index){
 		$.ajax({
@@ -158,6 +161,7 @@ function save(){
     	    }
     	});
 	});
+	}
 }
 
 </script>
@@ -195,7 +199,6 @@ function save(){
 			
 			<tr>
 				<td align="right" >
-					<span class="need_0">*</span>
 					<span class="text_ad_0">加班工资：</span>
 				</td>
 				<td>
@@ -206,7 +209,6 @@ function save(){
 			
 			<tr>
 				<td align="right" >
-					<span class="need_0">*</span>
 					<span class="text_ad_0">交通补：</span>
 				</td>
 				<td>
@@ -217,7 +219,6 @@ function save(){
 			
 			<tr>
 				<td align="right" >
-					<span class="need_0">*</span>
 					<span class="text_ad_0">餐补：</span>
 				</td>
 				<td>
@@ -228,7 +229,6 @@ function save(){
 			
 			<tr>
 				<td align="right" >
-					<span class="need_0">*</span>
 					<span class="text_ad_0">节假日补：</span>
 				</td>
 				<td>
@@ -239,7 +239,6 @@ function save(){
 			
 			<tr>
 				<td align="right" >
-					<span class="need_0">*</span>
 					<span class="text_ad_0">绩效：</span>
 				</td>
 				<td>
@@ -250,7 +249,6 @@ function save(){
 			
 			<tr>
 				<td align="right" >
-					<span class="need_0">*</span>
 					<span class="text_ad_0">其他：</span>
 				</td>
 				<td>

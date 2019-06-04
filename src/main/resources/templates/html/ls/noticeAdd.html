@@ -115,6 +115,9 @@ function save(){
 		urlStr = "/ls/updateNotice";
 		
 	}
+	if(param.title=="" || param.content==""){
+		layer.confirm('请填写必填项!', {icon: 2, title:'提示'});
+	}else{
 	
 	layer.confirm('确认保存吗？', {icon: 3, title:'提示'}, function(index){
 		$.ajax({
@@ -143,6 +146,7 @@ function save(){
     	    }
     	});
 	});
+	}
 }
 
 </script>
@@ -165,7 +169,7 @@ function save(){
 			</tr>
 			<tr style="">
 				<td align="right" >
-					<span class="need_0"></span>
+					<span class="need_0">*</span>
 					<span class="text_ad_0">内容：</span>
 				</td>
 				<td>
