@@ -1,37 +1,20 @@
-# bskms
-
-#### 介绍
+#### 项目介绍
 # 蓝天幼儿园管理系统 #
 
+蓝天幼儿园管理系统，共分为三种角色，管理员、家长、教师。
+管理员角色具有功能：
+系统管理-用户管理、页面管理、角色管理，
+校园管理-老师管理、工资管理、物资管理、菜谱管理、班级管理
+班级管理-学生管理、公告管理、课程管理
+考勤管理-老师考勤、学生考勤、老师考勤统计、学生考勤统计、签到签退
+
 #### 软件架构
-软件架构说明
+后端采用Springboot+MyBatis+MySQL+Shrio
+前端使用layui+html+thymeleaf
 
 
-#### 安装教程
+#### 开发环境
+Jdk1.8+IDEA+Maven
 
-1. xxxx
-2. xxxx
-3. xxxx
-
-#### 使用说明
-
-1. xxxx
-2. xxxx
-3. xxxx
-
-#### 参与贡献
-
-1. Fork 本仓库
-2. 新建 Feat_xxx 分支
-3. 提交代码
-4. 新建 Pull Request
-
-
-#### 码云特技
-
-1. 使用 Readme\_XXX.md 来支持不同的语言，例如 Readme\_en.md, Readme\_zh.md
-2. 码云官方博客 [blog.gitee.com](https://blog.gitee.com)
-3. 你可以 [https://gitee.com/explore](https://gitee.com/explore) 这个地址来了解码云上的优秀开源项目
-4. [GVP](https://gitee.com/gvp) 全称是码云最有价值开源项目，是码云综合评定出的优秀开源项目
-5. 码云官方提供的使用手册 [https://gitee.com/help](https://gitee.com/help)
-6. 码云封面人物是一档用来展示码云会员风采的栏目 [https://gitee.com/gitee-stars/](https://gitee.com/gitee-stars/)
+### 说明
+未经许可 不可用于商用用途
